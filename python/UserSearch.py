@@ -14,15 +14,17 @@ async def user_example():
         user_data = await user.info()
         # print(user_data)
 
-        async for video in user.videos(count=5):
+        # async for video in user.videos(count=5):
+        async for video in user.videos(count=1):
             print(video)
-            print(video.as_dict)
-
+            # print(video.as_dict)
             # avatar_larger = video.as_dict['author']['avatarLarger'] challenges
             # avatar_larger = video.as_dict['author']['challenges']['contents']['desc']
             # print(avatar_larger)
-            break
+            # break
 
+        # async for video in user.keywordvideos(keyword="グルメ", count=1):
+            # print(video)
 
 if __name__ == "__main__":
     asyncio.run(user_example())
