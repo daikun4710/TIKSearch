@@ -1,1 +1,38 @@
-aa
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>現在の位置を表示</title>
+</head>
+<body>
+    <div class="size">
+    <h1>現在の位置</h1>
+    <p id="location"></p>
+    
+    <script>
+        // ユーザーの現在位置を取得
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+                var accuracy = position.coords.accuracy; // 位置の精度
+
+                // 位置情報を表示
+                var locationElement = document.getElementById("location");
+                locationElement.textContent = "緯度: " + latitude + ", 経度: " + longitude + ", 精度: " + accuracy + " メートル";
+            }, function(error) {
+                // エラーメッセージを表示
+                var locationElement = document.getElementById("location");
+                locationElement.textContent = "位置情報を取得できませんでした。エラー: " + error.message;
+            });
+        } else {
+            // ブラウザが位置情報をサポートしていない場合のメッセージ
+            var locationElement = document.getElementById("location");
+            locationElement.textContent = "このブラウザは位置情報をサポートしていません。";
+        }
+    </script>
+    </div>
+</body>
+</html>

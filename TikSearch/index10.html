@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Leafletでピンの説明文を書き換える</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+</head>
+<body>
+    <div id="map" style="height: 500px;"></div>
+    <button onclick="updateMarkerDescription()">ピンの説明文を書き換える</button>
+
+    <script>
+        var map = L.map('map').setView([35.682839, 139.759455], 13); // 初期位置: 東京
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+        }).addTo(map);
+
+        var marker;
+
+        // 初期のピン情報
+        var initialMarkerInfo = {
+            latitude: 35.682839,
+            longitude: 139.759455,
+            title: "初期のピン",
+            description: "初期のピンの説明"
+        };
+
+        // マーカーを作成
+        marker = L.marker([initialMarkerInfo.latitude, initialMarkerInfo.longitude]).addTo(map);
+        marker.bindPopup(`<b>${initialMarkerInfo.title}</b><br>${initialMarkerInfo.description}`);
+
+        // ピンの説明文を書き換える関数
+        function updateMarkerDescription() {
+            // 新しいピンの説明文
+            var newDescription = "更新後のピンの説明文";
+
+            // マーカーのポップアップ内容を更新
+            marker.getPopup().setContent(`<b>${initialMarkerInfo.title}</b><br>${newDescription}`);
+
+            // マーカーのポップアップを開く
+            marker.openPopup();
+        }
+    </script>
+</body>
+</html>
