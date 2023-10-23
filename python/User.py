@@ -13,7 +13,7 @@ async def user_example():
 
         async for video in user.videos(count=30):
             print(video)
-            print(video.as_dict)
+            # print(video.as_dict)
 
 if __name__ == "__main__":
     asyncio.run(user_example())

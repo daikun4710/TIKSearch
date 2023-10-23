@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leafletでルートを表示</title>
+    <!-- Leafletのスタイルとライブラリを読み込む -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+    <!-- Mapboxライブラリを読み込む -->
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
+    <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet">
+</head>
+<body>
+    <!-- 地図を表示するコンテナ -->
+    <div id="map" style="height: 400px; width: 100%;"></div>
+
+    <script>
+        // ページが読み込まれた後に地図を初期化
+        window.onload = initMap;
+
+        function initMap() {
+            // 地図を表示するためのオプションを設定
+            var map = L.map('map').setView([35.6809591,139.7673068], 15); // 初期中心位置とズームレベル
+
+            // Mapboxタイルレイヤーを追加
+            L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoicGFubm9taW1paGFzaGkiLCJhIjoiY2xuOGI4ampwMGh4NDJxcWN0a3pwNDJybSJ9.0xRfcW5rW-J0s4nuw8bprQ', {
+                maxZoom: 19,
+                id: 'mapbox/streets-v11', // Mapboxスタイルを選択
+            }).addTo(map);
+
+            // ルート案内を表示する関数
+            function displayRouteToDestination(destination) {
+                // Mapbox Directions APIを使用してルートを計画
+                var directions = new mapboxgl.Directions({
+                    accessToken: 'pk.eyJ1IjoicGFubm9taW1paGFzaGkiLCJhIjoiY2xuOGI4ampwMGh4NDJxcWN0a3pwNDJybSJ9.0xRfcW5rW-J0s4nuw8bprQ', // Mapboxアクセストークン
+                });
+
+                directions.setOrigin([35.6809591,139.7673068]); // 現在地の緯度経度
+                directions.setDestination(destination); // 目的地の緯度経度
+                directions.setProfile('mapbox/driving'); // 交通手段を選択
+
+                directions.on('route', function(e) {
+                    var routes = e.route;
+                    if (routes.length > 0) {
+                        var route = routes[0];
+                        var geojson = route.geometry;
+                        var routeLayer = L.geoJson(geojson);
+                        routeLayer.addTo(map);
+                        map.fitBounds(routeLayer.getBounds());
+                    }
+                });
+
+                directions.query();
+            }
+
+            // 特定の場所の緯度経度を設定
+            var destinationLocation = [35.65856,139.745461]; // 目的地の緯度経度
+
+            // ルートを表示
+            displayRouteToDestination(destinationLocation);
+        }
+    </script>
+</body>
+</html>

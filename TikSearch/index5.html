@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>テスト</title>
+    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+</head>
+<body>
+    <py-script>
+        In [1]: import pandas as pd
+        In [2]: url = 'https://finance.yahoo.com/quote/AAPL/history?
+        p=AAPL&.tsrc=fin-srch'
+        In [3]: data = pd.read_html(url, header = 0)
+        In [4]: data[0].head()
+        Out[4]:
+    </py-script>
+
+</body>
+</html>

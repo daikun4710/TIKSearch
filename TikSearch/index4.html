@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/sample.css">
+    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <py-script>
+      import requests
+from bs4 import BeautifulSoup
+
+url = "https://www.ikyu.com/kankou/area8050/"
+
+response = requests.get(url)
+response.encoding = response.apparent_encoding
+
+bs = BeautifulSoup(response.text, 'html.parser')
+
+for i in bs.select("h3"):
+    print(i.getText())
+    </py-script>
+<label for="foo">クリックすると・・・</label>
+<input type="checkbox" name="foo" id="foo" />
+<div id="bar">表示！</div>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script>
+$(function(){
+  $('input#foo[type=checkbox]').click(function() {
+
+    if ($(this).prop('checked')) {
+      $('#bar').show();
+    } else {
+      $('#bar').hide();
+    }
+  });
+});
+</script>
+</body>
+</html>

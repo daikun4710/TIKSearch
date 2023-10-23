@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leafletで現在地を表示</title>
+    <!-- Leafletのスタイルとライブラリを読み込む -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+</head>
+<body>
+    <!-- 地図を表示するコンテナ -->
+    <div id="map" style="height: 400px; width: 100%;"></div>
+
+    <script>
+        // ページが読み込まれた後に地図を初期化
+        window.onload = initMap;
+
+        function initMap() {
+            // 地図を表示するためのオプションを設定
+            var map = L.map('map').setView([0, 0], 15); // 初期中心位置とズームレベル
+
+            // OpenStreetMapタイルレイヤーを追加
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+            }).addTo(map);
+
+
+            // ユーザーの現在位置を取得
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var userLocation = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+
+                    // マーカーを追加して現在位置を表示
+                    L.marker(userLocation).addTo(map)
+                        .bindPopup("現在の位置")
+                        .openPopup();
+            
+                        　　
+            // マーカーの位置情報を配列で定義
+            var markerLocations = [
+                { lat: 33.590188 , lng: 130.420685 }, // 例: 博多駅
+                { lat: 33.5884, lng: 130.4021 }, // 例: 天神駅
+                { lat: 33.5648718, lng:130.4403079}  // 例: ららぽーと福岡
+            ];
+
+            // マーカーを追加
+            markerLocations.forEach(function(location) {
+                L.marker([location.lat, location.lng]).addTo(map);
+            });
+                    
+                    // マップをユーザーの位置に移動
+                    map.setView(userLocation);
+                }, function(error) {
+                    console.error("位置情報を取得できませんでした。エラー: " + error.message);
+                });
+            } else {
+                console.error("このブラウザは位置情報をサポートしていません。");
+            }
+        }
+    </script>
+</body>
+</html>
+
+
