@@ -7,11 +7,10 @@ const { exec } = require('child_process');
 
 // CORS ミドルウェアを使用
 app.use(cors());
-
 app.get('/runcode', (req, res) => {
-  exec('python ../../python/hashtag_example.py', (error, stdout, stderr) => {
+  exec('python C:/xampp3/htdocs/TIKSearch/python/hashtag_example.py', (error, stdout, stderr) => {
     if (error) {
-      res.status(500).send('Python script execution failed');
+      res.status(500).json({ error: error.message, stderr: stderr });
     } else {
         // Pythonスクリプトの出力を指定エンコーディングでデコード
         const pythonOutput = Buffer.from(stdout, 'utf8').toString();
