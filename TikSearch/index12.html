@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Leafletで建物名を表示</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <input type="text" id="addressInput" placeholder="住所">
+    <button onclick="getBuildingName()">建物名を取得</button>
+    <div id="buildingNameInfo"></div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        var map = L.map('map').setView([35.682839, 139.759455], 13); // 初期位置: 東京
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+        }).addTo(map);
+
+        var marker;
+
+        function getBuildingName() {
+            var address = document.getElementById("addressInput").value;
+
+            // Nominatim APIを使用して住所情報を取得
+            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${address}&format=json&limit=1`)
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (data) {
+                    if (data.length > 0) {
+                        var location = data[0];
+                        var buildingName = location.display_name;
+
+                        if (buildingName) {
+                            document.getElementById("buildingNameInfo").textContent = "建物名: " + buildingName;
+
+                            // マップ上にピンを表示
+                            if (marker) {
+                                map.removeLayer(marker);
+                            }
+                            marker = L.marker([location.lat, location.lon]).addTo(map);
+                            marker.bindPopup("建物名: " + buildingName).openPopup();
+                        } else {
+                            document.getElementById("buildingNameInfo").textContent = "建物名が見つかりませんでした";
+                        }
+                    } else {
+                        alert("住所情報が見つかりませんでした");
+                    }
+                })
+                .catch(function (error) {
+                    console.error('ジオコーディングエラー:', error);
+                });
+        }
+    </script>
+</body>
+</html>
