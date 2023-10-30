@@ -1,0 +1,36 @@
+.someclass {
+    width: 500px;
+    height:300px;
+}
+
+
+.sign_up a {
+    position:absolute;
+    top: 600px;
+    left:250px;
+    width: 1000px;
+    height:50px;
+    text-decoration: none;
+    border-radius: 3px;
+    top: 600px;
+    left: 0px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 220px;
+    padding: 10px 25px;
+    color: #FFF;
+    transition: 0.3s ease-in-out;
+    font-weight: 600;
+    background: rgb(238, 255, 0, 0.782);
+    background: linear-gradient(270deg, rgba(238, 255, 0, 0.782) 0%, rgba(238, 255, 0, 0.782) 100%);
+}
+
+.sign_up a:hover {
+    background: rgb(117, 188, 255);
+    background: linear-gradient(270deg, rgba(117, 188, 255, 1) 0%, rgba(62, 159, 252, 1) 100%);
+}
+
+    
+    
