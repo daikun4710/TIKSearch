@@ -1,29 +1,103 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <title>Leaflet Multiple Locations</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <link rel="stylesheet" href="./css/size.css">
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    <title>Google Map with Info Window and Link</title>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-    <div id="map" class="map"></div>
-    <script src="./js/map.js"></script>
+    <div id="map"></div>
     <script>
-        // ページが読み込まれた後に地図を初期化
-        window.onload = function () {
-            var map = L.map('map').setView([36.2048, 138.2529], 5);
+        var map;
+        var infoWindow;
 
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
-            }).addTo(map);
-    
-    }
-        
-
-
+        function initMap() {
+            // マップを表示するためのオプションを設定
+            var mapOptions = {
+                center: { lat:0, lng:0}, // マップの初期中心位置
+                zoom: 15, // ズームレベル（1が最小、20が最大）
+            };
+            // 地図を作成
+            var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+  // ユーザーの現在位置を取得して地図上に表示
+  if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var userLocation = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
             
+
+                   
+              
+                    // ユーザーの位置にマーカーを追加
+                    new google.maps.Marker({
+                        position: userLocation,
+                        map: map,
+                        title: "現在の位置"
+                    });
+
+                    // マップをユーザーの位置に移動
+                    map.setCenter(userLocation);
+                    map.setZoom(15);
+                }, function(error) {
+                    // エラーメッセージを表示
+                    console.error("位置情報を取得できませんでした。エラー: " + error.message);
+                });
+            } else {
+                // ブラウザが位置情報をサポートしていない場合のメッセージ
+                console.error("このブラウザは位置情報をサポートしていません。");
+            }
+
+
+            // 情報ウィンドウを初期化
+            infoWindow = new google.maps.InfoWindow();
+
+            // ピンを立てたい住所
+            var address = "水深162cmの日本一深い温泉がやばすぎた…173cmの俺は息出来なかった🤣 📍熊本県南小国町　こうの湯 #熊本 #こうの湯 #熊本温泉";
+
+            // ジオコーディングを実行
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ address: address }, function(results, status) {
+                if (status === 'OK') {
+                    var location = results[0].geometry.location;
+
+                    // ピンを作成
+                    var marker = new google.maps.Marker({
+                        position: location,
+                        map: map,
+                        title: address
+                    });
+
+                    // 詳細情報ウィンドウの内容
+                    var contentString = '<div>サンプル<h3>' + address + '</h3><p>詳細情報がここに表示されます。</p><p><a href="https://www.tiktok.com/@yuuuuto38/video/7293401284609150216?q=%E7%A6%8F%E5%B2%A1%E8%A6%B3%E5%85%89&t=7150595195619282178" target="_blank">サイトへのリンク</a></p></div>';
+
+                    // ピンをクリックしたときのイベントリスナー
+                    marker.addListener('click', function() {
+                        // 詳細情報ウィンドウに内容をセット
+                        infoWindow.setContent(contentString);
+
+                        // ピンの位置にウィンドウを表示
+                        infoWindow.open(map, marker);
+                    });
+                } else {
+                    alert('ジオコーディングに失敗しました: ' + status);
+                }
+            });
+        }
     </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUqiDP-1T8cxCyJRYrel2GIcAlz5_vgAE&callback=initMap"></script>
+    <py-script>
+
+    
+  print(19)
+    </py-script>
 </body>
 </html>

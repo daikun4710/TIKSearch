@@ -1,5 +1,6 @@
 // ジオコーディング用のAPIキー（OpenCage Geocoding APIの例）
-var apiKey = 'fc57f504124644ca843e0f4c2f85ad7c';
+var apiKey = '5d2d24546dcc42adb9010a69bed463ad';
+
 
 // 複数の住所を指定
 var addresses = ['博多駅', '福岡県福岡市中央区天神２−１００４', 'ららぽーと福岡'];
@@ -45,6 +46,18 @@ addresses.forEach(function (address) {
         L.marker(userLocation).addTo(map)
             .bindPopup("現在の位置")
             .openPopup();
+        
+        // ルートの座標点を設定（緯度経度）
+var routeCoordinates = [
+    [50,0.1], // 始点座標
+    [51.51, -0.1],   // 終点座標
+];
+
+// ポリラインでルートを描画
+var route = L.polyline(routeCoordinates, {color: 'blue'}).addTo(map);
+
+// マップをルートに合わせてセンタリング
+map.fitBounds(route.getBounds());
         
         // マップをユーザーの位置に移動
         map.setView(userLocation,13);
