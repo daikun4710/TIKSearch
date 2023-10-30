@@ -8,7 +8,7 @@ const { exec } = require('child_process');
 // CORS ミドルウェアを使用
 app.use(cors());
 app.get('/runcode', (req, res) => {
-  exec('python python/hashtag_example.py', (error, stdout, stderr) => {
+  exec('python TikSearch/python/hashtag_example.py', (error, stdout, stderr) => {
     if (error) {
       res.status(500).json({ error: error.message, stderr: stderr });
     } else {
@@ -20,9 +20,9 @@ app.get('/runcode', (req, res) => {
 
         // 住所が含まれる行を抽出
         addressLines.forEach((line) => {
-        if (line.includes('〒')) {
+        // if (line.includes('〒')) {
             addresses.push(line.replace(/\r/g, '')); // /r を取り除く
-        }
+        // }
         });
         // Pythonスクリプトの出力をクライアントに JSON 形式で返す
         res.json({ addresses });
