@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>住所から建物名を検索</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <input type="text" id="addressInput" placeholder="住所">
+    <button onclick="searchBuildingName()">建物名を検索</button>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        var map = L.map('map').setView([35.681236, 139.767125], 15); // デフォルトの場所
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+        }).addTo(map);
+
+        var marker;
+
+        function searchBuildingName() {
+            var address = document.getElementById("addressInput").value;
+            var apiUrl = `https://geocode.xyz/${address}?json=1`;
+
+            fetch(apiUrl)
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (data) {
+                    if (data.staddress) {
+                        var buildingName = data.staddress;
+                        var lat = parseFloat(data.latt);
+                        var lon = parseFloat(data.longt);
+
+                        if (marker) {
+                            map.removeLayer(marker);
+                        }
+                        marker = L.marker([lat, lon]).addTo(map);
+                        marker.bindPopup(buildingName).openPopup();
+
+                        map.setView([lat, lon], 15);
+                    } else {
+                        alert("建物名が見つかりませんでした");
+                    }
+                })
+                .catch(function (error) {
+                    console.error('ジオコーディングエラー:', error);
+                });
+        }
+    </script>
+</body>
+</html>

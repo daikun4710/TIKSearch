@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>住所から建物名を取得</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <input type="text" id="addressInput" placeholder="住所">
+    <button onclick="getBuildingName()">建物名を取得</button>
+    <div id="buildingNameInfo"></div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        var map = L.map('map').setView([35.682839, 139.759455], 13); // 初期位置: 東京
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+        }).addTo(map);
+
+        var marker;
+
+        function getBuildingName() {
+            var address = document.getElementById("addressInput").value;
+            var apiKey = '5d2d24546dcc42adb9010a69bed463ad'; // OpenCage Geocoder APIのAPIキー
+
+            // OpenCage Geocoder APIエンドポイント
+            var apiUrl = `https://api.opencagedata.com/geocode/v1/json?q=${address}&key=${apiKey}`;
+
+            fetch(apiUrl)
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (data) {
+                    if (data.results.length > 0) {
+                        var location = data.results[0];
+                        var buildingName = location.components.house || location.components.road || location.formatted;
+
+                        if (buildingName) {
+                            document.getElementById("buildingNameInfo").textContent = "建物名: " + buildingName;
+
+                            // マップ上にピンを表示
+                            if (marker) {
+                                map.removeLayer(marker);
+                            }
+                            marker = L.marker([location.geometry.lat, location.geometry.lng]).addTo(map);
+                            marker.bindPopup("建物名: " + buildingName).openPopup();
+                        } else {
+                            document.getElementById("buildingNameInfo").textContent = "建物名が見つかりませんでした";
+                        }
+                    } else {
+                        alert("住所情報が見つかりませんでした");
+                    }
+                })
+                .catch(function (error) {
+                    console.error('ジオコーディングエラー:', error);
+                });
+        }
+    </script>
+</body>
+</html>
