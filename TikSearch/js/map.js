@@ -1,6 +1,7 @@
 // ジオコーディング用のAPIキー（OpenCage Geocoding APIの例）
 var apiKey = '5d2d24546dcc42adb9010a69bed463ad';
 
+
 // 複数の住所を指定
 var addresses = ['博多駅', '福岡県福岡市中央区天神２−１００４', 'ららぽーと福岡'];
 
@@ -66,6 +67,5 @@ map.fitBounds(route.getBounds());
 } else {
     console.error("このブラウザは位置情報をサポートしていません。");
 }
-
 });
     
