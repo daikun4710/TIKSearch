@@ -1,207 +1,251 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="./css/size.css">
-    <link rel="stylesheet" href="./css/sample.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="./css/size.css" />
+    <link rel="stylesheet" href="./css/sample.css" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body>
     <div class="logo">
-        <a href=""><img class="logoimg" src="./image/タイトル2_仮_-removebg-preview.png"></a>
+      <a href=""
+        ><img class="logoimg" src="./image/タイトル2_仮_-removebg-preview.png"
+      /></a>
     </div>
     <div class="center">
-        カテゴリ<br>
-        <select id="category" class="radis">
-            <option value="" class="cen">カテゴリを選択してください</option>
-            <option value="male" class="cen">観光</option>
-            <option value="female" class="cen">ご飯</option>
-        </select><br>
-        <div class="pulldownset">
-        場所<br>
+      カテゴリ<br />
+      <select id="category" class="radis">
+        <option value="" class="cen">カテゴリを選択してください</option>
+        <option value="旅" class="cen">旅</option>
+        <option value="グルメ" class="cen">グルメ</option></select
+      ><br />
+      <div class="pulldownset">
+        場所<br />
         <select class="mainselect">
-            <option value="">場所を選択してください</option>
-            <option value="hokkai">北海道</option>
-            <option value="tohoku">東北</option>
-            <option value="kantou">関東</option>
-            <option value="tyubu">中部</option>
-            <option value="kinki">近畿</option>
-            <option value="tyugoku">中国</option>
-            <option value="sikoku">四国</option>
-            <option value="kyusyu">九州</option>
-        </select><br>
-        <label for="foo" class="ditail">より詳しく</label><br>
+          <option value="">場所を選択してください</option>
+          <option value="hokkai">北海道</option>
+          <option value="tohoku">東北</option>
+          <option value="kantou">関東</option>
+          <option value="tyubu">中部</option>
+          <option value="kinki">近畿</option>
+          <option value="tyugoku">中国</option>
+          <option value="sikoku">四国</option>
+          <option value="kyusyu">九州</option></select
+        ><br />
+        <label for="foo" class="ditail">より詳しく</label><br />
         <input type="checkbox" name="foo" id="foo" />
         <div id="bar">
-            <!-- ================================================================ -->
-    <!-- (※2)▼項目「北海道」に対応する2段階目(サブ)のプルダウンメニュー -->
-    <select id="hokkai" class="subbox">
-        <option value="">北海道を選択</option>
-        <option value="ho">北海道</option>
-     </select>
-  
-     <!-- ================================================================ -->
-     <!-- (※3)▼項目「東北地方」に対応する2段階目(サブ)のプルダウンメニュー -->
-     <select id="tohoku" class="subbox">
-        <option value="">東北地方の県を選択</option>
-        <option value="aomori">青森県</option>
-        <option value="akita">秋田県</option>
-        <option value="iwate">岩手県</option>
-        <option value="miyagi">宮城県</option>
-        <option value="yamagata">山形県</option>
-        <option value="hukusima">福島県</option>
-     </select>
-  
-     <!-- ================================================================ -->
-     <!-- (※4)▼項目「関東地方」に対応する2段階目(サブ)のプルダウンメニュー -->
-     <select id="kantou" class="subbox">
-        <option value="">関東地方の県・都を選択</option>
-        <option value="tokyo">東京都</option>
-        <option value="tiba">千葉県</option>
-        <option value="saitama">埼玉県</option>
-        <option value="kanagawa">神奈川県</option>
-        <option value="gunma">群馬県</option>
-        <option value="totigi">栃木県</option>
-        <option value="ibaraki">茨城県</option>
-     </select>
-     
-     <!-- ================================================================ -->
-     <!-- (※4)▼項目「中部地方」に対応する2段階目(サブ)のプルダウンメニュー -->
-     <select id="tyubu" class="subbox">
-        <option value="">中部地方の県を選択</option>
-        <option value="nigata">新潟県</option>
-        <option value="yamanasi">山梨県</option>
-        <option value="sizuoka">静岡県</option>
-        <option value="nagano">長野県</option>
-        <option value="gihu">岐阜県</option>
-        <option value="aichi">愛知県</option>
-        <option value="toyama">富山県</option>
-        <option value="isii">石井県</option>
-        <option value="hukui">福井県</option>
-     </select>
-    
-     <!-- ================================================================ -->
-     <!-- (※4)▼項目「近畿地方」に対応する2段階目(サブ)のプルダウンメニュー -->
-     <select id="kinki" class="subbox">
-        <option value="">近畿地方の県・府を選択</option>
-        <option value="kyoto">京都府</option>
-        <option value="osaka">大阪府</option>
-        <option value="siga">滋賀県</option>
-        <option value="hyogo">兵庫県</option>
-        <option value="nara">奈良県</option>
-        <option value="wakayama">和歌山県</option>
-        <option value="mie">三重県</option>
-     </select>
-     
-     <!-- ================================================================ -->
-     <!-- (※4)▼項目「中国地方」に対応する2段階目(サブ)のプルダウンメニュー -->
-     <select id="tyugoku" class="subbox">
-        <option value="">中国地方の県を選択</option>
-        <option value="totori">鳥取県</option>
-        <option value="simane">島根県</option>
-        <option value="okayama">岡山県</option>
-        <option value="hirosima">広島県</option>
-        <option value="yamaguti">山口県</option>
-     </select>
-     
-     <!-- ================================================================ -->
-     <!-- (※4)▼項目「四国地方」に対応する2段階目(サブ)のプルダウンメニュー -->
-     <select id="sikoku" class="subbox">
-        <option value="">四国地方の県を選択</option>
-        <option value="ehime">愛媛県</option>
-        <option value="koti">高知県</option>
-        <option value="tokusima">徳島県</option>
-        <option value="kagawa">香川県</option>
-     </select>
-     
-     <!-- ================================================================ -->
-     <!-- (※4)▼項目「九州地方」に対応する2段階目(サブ)のプルダウンメニュー -->
-     <select id="kyusyu" class="subbox">
-        <option value="">九州地方の県を選択</option>
-        <option value="hukuoka">福岡県</option>
-        <option value="saga">佐賀県</option>
-        <option value="nagaskai">長崎県</option>
-        <option value="kumamoto">熊本県</option>
-        <option value="oita">大分県</option>
-        <option value="miyazaki">宮崎県</option>
-        <option value="kagosima">鹿児島県</option>
-        <option value="okinawa">沖縄県</option>
-     </select>
+          <!-- ================================================================ -->
+          <!-- (※2)▼項目「北海道」に対応する2段階目(サブ)のプルダウンメニュー -->
+          <select id="hokkai" class="subbox">
+            <option value="">北海道を選択</option>
+            <option value="ho">北海道</option>
+          </select>
+
+          <!-- ================================================================ -->
+          <!-- (※3)▼項目「東北地方」に対応する2段階目(サブ)のプルダウンメニュー -->
+          <select id="tohoku" class="subbox">
+            <option value="">東北地方の県を選択</option>
+            <option value="aomori">青森県</option>
+            <option value="akita">秋田県</option>
+            <option value="iwate">岩手県</option>
+            <option value="miyagi">宮城県</option>
+            <option value="yamagata">山形県</option>
+            <option value="hukusima">福島県</option>
+          </select>
+
+          <!-- ================================================================ -->
+          <!-- (※4)▼項目「関東地方」に対応する2段階目(サブ)のプルダウンメニュー -->
+          <select id="kantou" class="subbox">
+            <option value="">関東地方の県・都を選択</option>
+            <option value="tokyo">東京都</option>
+            <option value="tiba">千葉県</option>
+            <option value="saitama">埼玉県</option>
+            <option value="kanagawa">神奈川県</option>
+            <option value="gunma">群馬県</option>
+            <option value="totigi">栃木県</option>
+            <option value="ibaraki">茨城県</option>
+          </select>
+
+          <!-- ================================================================ -->
+          <!-- (※4)▼項目「中部地方」に対応する2段階目(サブ)のプルダウンメニュー -->
+          <select id="tyubu" class="subbox">
+            <option value="">中部地方の県を選択</option>
+            <option value="nigata">新潟県</option>
+            <option value="yamanasi">山梨県</option>
+            <option value="sizuoka">静岡県</option>
+            <option value="nagano">長野県</option>
+            <option value="gihu">岐阜県</option>
+            <option value="aichi">愛知県</option>
+            <option value="toyama">富山県</option>
+            <option value="isii">石井県</option>
+            <option value="hukui">福井県</option>
+          </select>
+
+          <!-- ================================================================ -->
+          <!-- (※4)▼項目「近畿地方」に対応する2段階目(サブ)のプルダウンメニュー -->
+          <select id="kinki" class="subbox">
+            <option value="">近畿地方の県・府を選択</option>
+            <option value="kyoto">京都府</option>
+            <option value="osaka">大阪府</option>
+            <option value="siga">滋賀県</option>
+            <option value="hyogo">兵庫県</option>
+            <option value="nara">奈良県</option>
+            <option value="wakayama">和歌山県</option>
+            <option value="mie">三重県</option>
+          </select>
+
+          <!-- ================================================================ -->
+          <!-- (※4)▼項目「中国地方」に対応する2段階目(サブ)のプルダウンメニュー -->
+          <select id="tyugoku" class="subbox">
+            <option value="">中国地方の県を選択</option>
+            <option value="totori">鳥取県</option>
+            <option value="simane">島根県</option>
+            <option value="okayama">岡山県</option>
+            <option value="hirosima">広島県</option>
+            <option value="yamaguti">山口県</option>
+          </select>
+
+          <!-- ================================================================ -->
+          <!-- (※4)▼項目「四国地方」に対応する2段階目(サブ)のプルダウンメニュー -->
+          <select id="sikoku" class="subbox">
+            <option value="">四国地方の県を選択</option>
+            <option value="ehime">愛媛県</option>
+            <option value="koti">高知県</option>
+            <option value="tokusima">徳島県</option>
+            <option value="kagawa">香川県</option>
+          </select>
+
+          <!-- ================================================================ -->
+          <!-- (※4)▼項目「九州地方」に対応する2段階目(サブ)のプルダウンメニュー -->
+          <select id="kyusyu" class="subbox">
+            <option value="">九州地方の県を選択</option>
+            <option value="福岡">福岡県</option>
+            <option value="佐賀">佐賀県</option>
+            <option value="長崎">長崎県</option>
+            <option value="熊本">熊本県</option>
+            <option value="大分">大分県</option>
+            <option value="宮崎">宮崎県</option>
+            <option value="鹿児島">鹿児島県</option>
+            <option value="沖縄">沖縄県</option>
+          </select>
         </div>
-    </div>
-    選択方法<br>
-    <select id="choose" class="radis">
+      </div>
+      選択方法<br />
+      <select id="choose" class="radis">
         <option value="" class="sentaku">選択方法は?</option>
         <option value="all">範囲全部!</option>
         <option value="medi">まあまあ!</option>
-        <option value="little">ひとつだけ!</option>
-    </select><br>
-        <br><button id="mapper" Style="background-color: #ffc684; color: white; width: 300px;height: 60px;font-size:20px; border-radius: 10px;">現在地を取得して経路を出す</button>
-    <br>
+        <option value="little">ひとつだけ!</option></select
+      ><br />
+      <br /><button
+        id="mapper"
+        style="
+          background-color: #ffc684;
+          color: white;
+          width: 300px;
+          height: 60px;
+          font-size: 20px;
+          border-radius: 10px;
+        "
+      >
+        現在地を取得して経路を出す
+      </button>
+      <br />
     </div>
     <script src="./js/map.js"></script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script
+      type="text/javascript"
+      src="https://code.jquery.com/jquery-1.12.4.js"
+    ></script>
     <script>
-    $(function(){
-      $('input#foo[type=checkbox]').click(function() {
-        if ($(this).prop('checked')) {
-          $('#bar').show();
-        } else {
-          $('#bar').hide();
-        }
+      $(function () {
+        $("input#foo[type=checkbox]").click(function () {
+          if ($(this).prop("checked")) {
+            $("#bar").show();
+          } else {
+            $("#bar").hide();
+          }
+        });
       });
-    });
     </script>
     <script>
-        // ボタン要素を取得
-        var redirectButton = document.getElementById("mapper");
+      // ボタン要素を取得
+      var executePythonButton = document.getElementById("mapper");
 
-        // ボタンがクリックされたときの処理を追加
-        redirectButton.addEventListener("click", function() {
-            // 別のページに遷移する
-            location.href= `file:///C:/xampp/TIKSearch/TikSearch/index7.html`; // 遷移先のURLを指定
-        });
+      executePythonButton.addEventListener("click", () => {
+        const kyusyuSelect = document.getElementById("kyusyu");
+        const categorySelect = document.getElementById("category");
+
+        const selectedKyusyu = kyusyuSelect.value;
+        const selectedCategory = categorySelect.value;
+
+        // 選択された県とカテゴリを結合
+        const combinedValue = selectedKyusyu + selectedCategory;
+        console.log(combinedValue);
+
+        // テキストボックスの値をサーバーに送信してハッシュタグを変更
+        fetch("http://localhost:3000/changeHashtag", {
+          method: "POST", // POST リクエストを送信
+          headers: {
+            "Content-Type": "application/json",
+            // 他の必要なヘッダーがあれば追加
+          },
+          body: JSON.stringify({ newHashtag: combinedValue }), // リクエストボディにデータを送信
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            // alert(data.message);
+          });
+
+        console.log("起動中です");
+        fetch("http://localhost:3000/runcode")
+          .then((response) => response.json())
+          .then((data) => {
+            const addresses = data; // サーバーからのデータをJavaScriptの配列として直接取得
+            console.log("Addresses:", addresses);
+            localStorage.setItem("Addresses", JSON.stringify(addresses));
+            location.href = `./index7.html`;
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      });
     </script>
     <script type="text/javascript">
-        // ▼HTMLの読み込み直後に実行：
-        document.addEventListener('DOMContentLoaded', function() {
-        
-           // ▼2階層目の要素を全て非表示にする
-           var allSubBoxes = document.getElementsByClassName("subbox");
-           for( var i=0 ; i<allSubBoxes.length ; i++) {
-              allSubBoxes[i].style.display = 'none';
-           }
-        
-        });
-        </script>
-        <script type="text/javascript">
-            // ▼HTMLの読み込み直後に実行：
-            document.addEventListener('DOMContentLoaded', function() {
-            
-               // ▼全てのプルダウンメニューセットごとに処理
-               var mainBoxes = document.getElementsByClassName('pulldownset');
-               for( var i=0 ; i<mainBoxes.length ; i++) {
-               
-                  var mainSelect = mainBoxes[i].getElementsByClassName("mainselect");   // 1階層目(メイン)のプルダウンメニュー（※後でvalue属性値を参照するので、select要素である必要があります。）
-                  mainSelect[0].onchange = function () {
-                     // ▼同じ親要素に含まれているすべての2階層目(サブ)要素を消す
-                     var subBox = this.parentNode.getElementsByClassName("subbox");   // 同じ親要素に含まれる.subbox（※select要素に限らず、どんな要素でも構いません。）
-                     for( var j=0 ; j<subBox.length ; j++) {
-                        subBox[j].style.display = 'none';
-                     }
-               
-                     // ▼指定された2階層目(サブ)要素だけを表示する
-                     if( this.value ) {
-                        var targetSub = document.getElementById( this.value );   // 「1階層目のプルダウンメニューで選択されている項目のvalue属性値」と同じ文字列をid属性値に持つ要素を得る
-                        targetSub.style.display = 'inline';
-                     }
-                  }
-               
-               }
-            
-            });
-            </script>
-</body>
+      // ▼HTMLの読み込み直後に実行：
+      document.addEventListener("DOMContentLoaded", function () {
+        // ▼2階層目の要素を全て非表示にする
+        var allSubBoxes = document.getElementsByClassName("subbox");
+        for (var i = 0; i < allSubBoxes.length; i++) {
+          allSubBoxes[i].style.display = "none";
+        }
+      });
+    </script>
+    <script type="text/javascript">
+      // ▼HTMLの読み込み直後に実行：
+      document.addEventListener("DOMContentLoaded", function () {
+        // ▼全てのプルダウンメニューセットごとに処理
+        var mainBoxes = document.getElementsByClassName("pulldownset");
+        for (var i = 0; i < mainBoxes.length; i++) {
+          var mainSelect = mainBoxes[i].getElementsByClassName("mainselect"); // 1階層目(メイン)のプルダウンメニュー（※後でvalue属性値を参照するので、select要素である必要があります。）
+          mainSelect[0].onchange = function () {
+            // ▼同じ親要素に含まれているすべての2階層目(サブ)要素を消す
+            var subBox = this.parentNode.getElementsByClassName("subbox"); // 同じ親要素に含まれる.subbox（※select要素に限らず、どんな要素でも構いません。）
+            for (var j = 0; j < subBox.length; j++) {
+              subBox[j].style.display = "none";
+            }
+
+            // ▼指定された2階層目(サブ)要素だけを表示する
+            if (this.value) {
+              var targetSub = document.getElementById(this.value); // 「1階層目のプルダウンメニューで選択されている項目のvalue属性値」と同じ文字列をid属性値に持つ要素を得る
+              targetSub.style.display = "inline";
+            }
+          };
+        }
+      });
+    </script>
+  </body>
 </html>
