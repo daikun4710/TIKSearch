@@ -11,12 +11,15 @@ async def get_hashtag_videos():
     async with TikTokApi() as api:
         await api.create_sessions(ms_tokens=[ms_token], num_sessions=1, sleep_after=3)
         tag = api.hashtag(name="paypayドーム")
-        async for video in tag.videos(count=35,cursor=0):
+        async for video in tag.videos(count=1,cursor=0):
+            # print(video.as_dict)
             print(video)
+            print(video.as_dict['video']['zoomCover']['960'])
+            print(video.as_dict['author']['uniqueId'])
             # 住所取得 poiが存在し　郵便番号がある場合
-            if 'poi' in video.as_dict:
-                address = video.as_dict['poi']['address']
-                print(address)
+            # if 'poi' in video.as_dict:
+            #     address = video.as_dict['poi']['address']
+            #     print(address)
 
 if __name__ == "__main__":
     asyncio.run(get_hashtag_videos())
