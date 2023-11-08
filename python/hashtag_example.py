@@ -1,11 +1,16 @@
+import argparse
 from TikTokApi import TikTokApi
 import asyncio
 import os
 import sys
 sys.stdout.reconfigure(encoding='utf-8')
-#utf-8エンコーディング
 
-ms_token = os.environ.get("ms_token","E7hDXPgowjq7BqwVr0wDUiiT5-FvJBa2PBbqVSglGVMtc0FJOn-Ycxh1fe_mIAx-zu9knGwbABXjmFCqWFV405-By_qdd_NUUin3sAAwjNyqann4wSQw3kUDIwv8jCVqmkBDoRFf6O2KvtI=")  # set your own ms_token
+# コマンドライン引数の解析
+parser = argparse.ArgumentParser(description="Get TikTok videos by hashtag")
+parser.add_argument("--hashtag", type=str, help="Hashtag to search for", required=True)
+args = parser.parse_args()
+
+ms_token = os.environ.get("ms_token", "E7hDXPgowjq7BqwVr0wDUiiT5-FvJBa2PBbqVSglGVMtc0FJOn-Ycxh1fe_mIAx-zu9knGwbABXjmFCqWFV405-By_qdd_NUUin3sAAwjNyqann4wSQw3kUDIwv8jCVqmkBDoRFf6O2KvtI=")  # set your own ms_token
 
 async def get_hashtag_videos():
     async with TikTokApi() as api:
@@ -13,7 +18,7 @@ async def get_hashtag_videos():
         tage = 0
         result = 30
         while tage < result:
-            tag = api.hashtag(name="観光スポット")
+            tag = api.hashtag(name=args.hashtag)
             async for video in tag.videos(count=35,cursor=tage):
                 # 住所取得 poiが存在し　郵便番号がある場合
                 address = ""

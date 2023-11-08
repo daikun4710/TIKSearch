@@ -1,68 +1,94 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leafletで現在地を表示</title>
-    <!-- Leafletのスタイルとライブラリを読み込む -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <title>Google Map with Info Window</title>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-    <!-- 地図を表示するコンテナ -->
-    <div id="map" style="height: 400px; width: 100%;"></div>
-
+    <div id="map"></div>
     <script>
-        // ページが読み込まれた後に地図を初期化
-        window.onload = initMap;
+        var map;
+        var infoWindow;
 
         function initMap() {
-            // 地図を表示するためのオプションを設定
-            var map = L.map('map').setView([0, 0], 15); // 初期中心位置とズームレベル
-
-            // OpenStreetMapタイルレイヤーを追加
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
-            }).addTo(map);
-
-
-            // ユーザーの現在位置を取得
-            if ("geolocation" in navigator) {
+            var mapOptions = {
+                center: { lat:0, lng:0}, // マップの初期中心位置
+                zoom: 15, // ズームレベル（1が最小、20が最大）
+            };
+            // 地図を作成
+            var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+  // ユーザーの現在位置を取得して地図上に表示
+  if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
                     var userLocation = {
                         lat: position.coords.latitude,
                         lng: position.coords.longitude
                     };
-
-                    // マーカーを追加して現在位置を表示
-                    L.marker(userLocation).addTo(map)
-                        .bindPopup("現在の位置")
-                        .openPopup();
             
-                        　　
-            // マーカーの位置情報を配列で定義
-            var markerLocations = [
-                { lat: 33.590188 , lng: 130.420685 }, // 例: 博多駅
-                { lat: 33.5884, lng: 130.4021 }, // 例: 天神駅
-                { lat: 33.5648718, lng:130.4403079}  // 例: ららぽーと福岡
-            ];
 
-            // マーカーを追加
-            markerLocations.forEach(function(location) {
-                L.marker([location.lat, location.lng]).addTo(map);
-            });
-                    
+                   
+              
+                    // ユーザーの位置にマーカーを追加
+                    new google.maps.Marker({
+                        position: userLocation,
+                        map: map,
+                        title: "現在の位置"
+                    });
+
                     // マップをユーザーの位置に移動
-                    map.setView(userLocation);
+                    map.setCenter(userLocation);
+                    map.setZoom(15);
                 }, function(error) {
+                    // エラーメッセージを表示
                     console.error("位置情報を取得できませんでした。エラー: " + error.message);
                 });
             } else {
+                // ブラウザが位置情報をサポートしていない場合のメッセージ
                 console.error("このブラウザは位置情報をサポートしていません。");
             }
+
+            // 情報ウィンドウを初期化
+            infoWindow = new google.maps.InfoWindow();
+
+            // ピンを立てたい住所
+            var address = "博多駅";
+
+            // ジオコーディングを実行
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ address: address }, function(results, status) {
+                if (status === 'OK') {
+                    var location = results[0].geometry.location;
+
+                    // ピンを作成
+                    var marker = new google.maps.Marker({
+                        position: location,
+                        map: map,
+                        title: address
+                    });
+
+                    // ピンをクリックしたときのイベントリスナー
+                    marker.addListener('click', function() {
+                        // 詳細情報ウィンドウの内容
+                        var contentString = '<div>博多駅について<h3>' + address + '</h3>https://www.jrkyushu.co.jp/railway/station/1191771_1601.html</p></div>';
+
+                        // 詳細情報ウィンドウに内容をセット
+                        infoWindow.setContent(contentString);
+
+                        // ピンの位置にウィンドウを表示
+                        infoWindow.open(map, marker);
+                    });
+                } else {
+                    alert('ジオコーディングに失敗しました: ' + status);
+                }
+            });
         }
     </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUqiDP-1T8cxCyJRYrel2GIcAlz5_vgAE&callback=initMap"></script>
 </body>
 </html>
-
-

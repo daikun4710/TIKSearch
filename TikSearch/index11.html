@@ -19,46 +19,26 @@
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script>
-        var map = L.map('map').setView([35.682839, 139.759455], 13); // 初期位置: 東京
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-        }).addTo(map);
+       // 入力の文章
+var text = "最近、新しいカフェでコーヒーを楽しんできました。そのカフェの名前は「Sunrise Coffee」です。";
 
-        var marker;
+// 正規表現を使用して店名のようなテキストを抽出
+var shopNameMatches = text.match(/"([^"]+)"/g);
 
-        function getBuildingName() {
-            var postalCode = document.getElementById("postalCodeInput").value;
+if (shopNameMatches) {
+  // ダブルクォートで囲まれたテキストを抽出
+  var shopNames = shopNameMatches.map(function(match) {
+    return match.replace(/"/g, ''); // ダブルクォートを削除
+  });
 
-            // Nominatim APIを使用して住所情報を取得
-            fetch(`https://nominatim.openstreetmap.org/search?postalcode=${postalCode}&format=json&limit=1`)
-                .then(function (response) {
-                    return response.json();
-                })
-                .then(function (data) {
-                    if (data.length > 0) {
-                        var location = data[0];
-                        var buildingName = location.display_name;
+  // 抽出した店名を表示
+  for (var i = 0; i < shopNames.length; i++) {
+    console.log(shopNames[i]);
+  }
+} else {
+  console.log("店名が見つかりませんでした。");
+}
 
-                        if (buildingName) {
-                            document.getElementById("buildingNameInfo").textContent = "建物名: " + buildingName;
-
-                            // マップ上にピンを表示
-                            if (marker) {
-                                map.removeLayer(marker);
-                            }
-                            marker = L.marker([location.lat, location.lon]).addTo(map);
-                            marker.bindPopup("建物名: " + buildingName).openPopup();
-                        } else {
-                            document.getElementById("buildingNameInfo").textContent = "建物名が見つかりませんでした";
-                        }
-                    } else {
-                        alert("住所情報が見つかりませんでした");
-                    }
-                })
-                .catch(function (error) {
-                    console.error('ジオコーディングエラー:', error);
-                });
-        }
     </script>
 </body>
 </html>
