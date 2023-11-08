@@ -22,4 +22,4 @@ if __name__ == "__main__":
     # キーワードで検索
     keyword = "キーワードをここに入力"
     count = 10  # 取得する動画の数
-    await search_and_display_videos(api, keyword, count)
+# await search_and_display_videos(api, keyword, count)
