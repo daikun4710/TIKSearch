@@ -10,24 +10,19 @@ ms_token = os.environ.get("ms_token","E7hDXPgowjq7BqwVr0wDUiiT5-FvJBa2PBbqVSglGV
 async def get_hashtag_videos():
     async with TikTokApi() as api:
         await api.create_sessions(ms_tokens=[ms_token], num_sessions=1, sleep_after=3)
-        tag = api.hashtag(name="福岡グルメ")
-        async for video in tag.videos(count=30,cursor=0):
-            # print(video)
-            # 住所取得 poiが存在し　郵便番号がある場合
-            if 'poi' in video.as_dict:
-                address = video.as_dict['poi']['address']
-                if '〒' in address:
-                    postal_code_index = address.index('〒')
-                    # "〒"から始まる部分を含む全体の住所を取得
-                    full_address = address[postal_code_index:]
-                    # print("住所情報" + full_address.encode('utf-8').decode('utf-8') + "\n")
-                    print(full_address.encode('utf-8').decode('utf-8') + "\n")
-            # いいね数 diggCount
-            digg = video.as_dict['stats']['diggCount']
-            # print(digg)
-            # print("ビデオ詳細" + video.as_dict + "\n")
-            # break
-
+        tage = 0
+        result = 30
+        while tage < result:
+            tag = api.hashtag(name="観光スポット")
+            async for video in tag.videos(count=35,cursor=tage):
+                # 住所取得 poiが存在し　郵便番号がある場合
+                address = ""
+                if 'poi' in video.as_dict:
+                    address = video.as_dict['poi']['address']
+                video_description = video.as_dict['desc']
+                print("動画の概要欄+住所:", video_description+address)
+                print(video.as_dict['id'])
+                tage += 1
 
 if __name__ == "__main__":
     asyncio.run(get_hashtag_videos())
