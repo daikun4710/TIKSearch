@@ -65,44 +65,55 @@
         infoWindow = new google.maps.InfoWindow();
 
         // ピンを立てたい住所
-        var address =
-          "水深162cmの日本一深い温泉がやばすぎた…173cmの俺は息出来なかった🤣 📍熊本県南小国町　こうの湯 #熊本 #こうの湯 #熊本温泉";
-
+        const addressesData = JSON.parse(localStorage.getItem("Addresses"));
+        //addressesData の中の　addresses を取り出す
+        let addresses = addressesData.addresses;
         // ジオコーディングを実行
         var geocoder = new google.maps.Geocoder();
-        geocoder.geocode({ address: address }, function (results, status) {
-          if (status === "OK") {
-            var location = results[0].geometry.location;
+        // 4 つごとにまとまっていると仮定してループ
+        for (let i = 0; i < addresses.length; i += 4) {
+            let address = addresses[i];//住所
+            let currentID = addresses[i + 1]; //動画ID
+            let currentUsername = addresses[i + 2];//ユーザー名
+            let currentThumbnail = addresses[i + 3];//サムネイルurl
 
-            // ピンを作成
-            var marker = new google.maps.Marker({
-              position: location,
-              map: map,
-              title: address,
-            });
+            geocoder.geocode({ address: address }, function (results, status) {
+            if (status === "OK") {
+                var location = results[0].geometry.location;
 
-            // 詳細情報ウィンドウの内容
-            var contentString =
-              "<div>サンプル<h3>" +
-              address +
-              '</h3><p>詳細情報がここに表示されます。</p><p><a href="https://www.tiktok.com/@yuuuuto38/video/7293401284609150216?q=%E7%A6%8F%E5%B2%A1%E8%A6%B3%E5%85%89&t=7150595195619282178" target="_blank">サイトへのリンク</a></p></div>';
+                // ピンを作成
+                var marker = new google.maps.Marker({
+                    position: location,
+                    map: map,
+                    title: address,
+                });
 
-            // ピンをクリックしたときのイベントリスナー
-            marker.addListener("click", function () {
-              // 詳細情報ウィンドウに内容をセット
-              infoWindow.setContent(contentString);
+                // 詳細情報ウィンドウの内容
+                var contentString =
+                    "<div>サンプル<h3>" +
+                    address +
+                    '</h3><p>詳細情報がここに表示されます。</p><p><a href="https://www.tiktok.com/@'+
+                      currentUsername+'/video/'+
+                      currentID+'" target="_blank">サイトへのリンク</a></p></div>';
 
-              // ピンの位置にウィンドウを表示
-              infoWindow.open(map, marker);
-            });
-          } else {
-            alert("ジオコーディングに失敗しました: " + status);
-          }
+                // ピンをクリックしたときのイベントリスナー
+                marker.addListener("click", function () {
+                    // 詳細情報ウィンドウに内容をセット
+                    infoWindow.setContent(contentString);
+
+                    // ピンの位置にウィンドウを表示
+                    infoWindow.open(map, marker);
+                });
+            } else {
+                alert("ジオコーディングに失敗しました: " + status);
+            }
         });
+        }
+
       }
-      var dataArray = JSON.parse(localStorage.getItem("Addresses"));
+      // var dataArray = JSON.parse(localStorage.getItem("Addresses"));
       //検索情報出力
-      console.log(dataArray);
+      // console.log(dataArray);
     </script>
 
     <script
