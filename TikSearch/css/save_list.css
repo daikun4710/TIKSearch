@@ -1,0 +1,204 @@
+.body {
+    background: #ffbeda;
+}
+
+.return_button{
+    position:absolute;  
+    top: 60px;
+    left:5px;
+    border:none;
+    color:blue;
+    background:#ffbeda;
+    font-size:25px;
+}
+
+.button1{
+    position:absolute;
+    top: 150px;
+    left:250px;
+    width:1000px;
+    height:150px;
+    border:none;
+}
+
+.picture1{
+    position:absolute;
+    top: 175px;
+    left:280px;
+    width:150px;
+    height:100px;
+}
+
+.place1{
+    position:absolute;
+    top: 125px;
+    left:500px;
+    font-size:30px;
+}
+
+.address1{
+    position:absolute;
+    top: 175px;
+    left:500px;
+    font-size:20px;
+}
+
+.internet1{
+    position:absolute;
+    top: 200px;
+    left:515px;
+    font-size:20px;
+}
+
+.telephone1{
+    position:absolute;
+    top: 225px;
+    left:515px;
+    font-size:20px;
+}
+
+.Delete_button1{
+    position:absolute;
+    top: 155px;
+    left:1190px;
+    color:red;
+    border:none;
+    font-size:20px;
+}
+
+.button2{
+    position:absolute;
+    top: 350px;
+    left:250px;
+    width:1000px;
+    height:150px;
+    border:none;
+}
+
+.picture2{
+    position:absolute;
+    top: 375px;
+    left:280px;
+    width:150px;
+    height:100px;
+}
+
+.place2{
+    position:absolute;
+    top:325px;
+    left:500px;
+    font-size:30px;
+}
+
+.address2{
+    position:absolute;
+    top: 375px;
+    left:500px;
+    font-size:20px;
+}
+
+.internet2{
+    position:absolute;
+    top: 400px;
+    left:515px;
+    font-size:20px;
+}
+
+.telephone2{
+    position:absolute;
+    top: 425px;
+    left:515px;
+    font-size:20px;
+}
+
+.Delete_button2{
+    position:absolute;
+    top: 355px;
+    left:1190px;
+    color:red;
+    border:none;
+    font-size:20px;
+}
+
+.button3{
+    position:absolute;
+    top: 550px;
+    left:250px;
+    width:1000px;
+    height:150px;
+    border:none;
+}
+
+.picture3{
+    position:absolute;
+    top: 575px;
+    left:280px;
+    width:150px;
+    height:100px;
+}
+
+.place3{
+    position:absolute;
+    top:525px;
+    left:500px;
+    font-size:30px;
+}
+
+.address3{
+    position:absolute;
+    top: 575px;
+    left:500px;
+    font-size:20px;
+}
+
+.internet3{
+    position:absolute;
+    top: 600px;
+    left:515px;
+    font-size:20px;
+}
+
+.telephone3{
+    position:absolute;
+    top: 625px;
+    left:515px;
+    font-size:20px;
+}
+
+.Delete_button3{
+    position:absolute;
+    top: 555px;
+    left:1190px;
+    color:red;
+    border:none;
+    font-size:20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
