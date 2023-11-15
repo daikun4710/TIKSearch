@@ -90,11 +90,12 @@
 
                 // 詳細情報ウィンドウの内容
                 var contentString =
-                    "<div>サンプル<h3>" +
+                    "<div><h3>" +
                     address +
-                    '</h3><p>詳細情報がここに表示されます。</p><p><a href="https://www.tiktok.com/@'+
+                    '</h3><p><a href="https://www.tiktok.com/@'+
                       currentUsername+'/video/'+
-                      currentID+'" target="_blank">サイトへのリンク</a></p></div>';
+                      currentID+'" target="_blank">サイトへのリンク</a></p><p><img src="'
+                        +currentThumbnail+'" alt="サムネイル" height="320"></p></div>';
 
                 // ピンをクリックしたときのイベントリスナー
                 marker.addListener("click", function () {
