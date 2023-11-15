@@ -15,16 +15,16 @@
       /></a>
     </div>
     <div class="center">
-      カテゴリ<br />
-      <select id="category" class="radis">
-        <option value="" class="cen">カテゴリを選択してください</option>
-        <option value="旅" class="cen">旅</option>
+      カテゴリ<br/>
+      <select id="category" class="radis" required>
+        <option value="" class="cen" hidden>カテゴリを選択してください</option>
+        <option value="観光" class="cen">観光</option>
         <option value="グルメ" class="cen">グルメ</option></select
       ><br />
       <div class="pulldownset">
         場所<br />
-        <select class="mainselect">
-          <option value="">場所を選択してください</option>
+        <select class="mainselect" id="select" required>
+          <option value="" hidden>場所を選択してください</option>
           <option value="hokkai">北海道</option>
           <option value="tohoku">東北</option>
           <option value="kantou">関東</option>
@@ -39,89 +39,89 @@
         <div id="bar">
           <!-- ================================================================ -->
           <!-- (※2)▼項目「北海道」に対応する2段階目(サブ)のプルダウンメニュー -->
-          <select id="hokkai" class="subbox">
-            <option value="">北海道を選択</option>
-            <option value="ho">北海道</option>
+          <select id="hokkai" class="subbox" required>
+            <option value="" hidden>北海道を選択</option>
+            <option value="北海道">北海道</option>
           </select>
 
           <!-- ================================================================ -->
           <!-- (※3)▼項目「東北地方」に対応する2段階目(サブ)のプルダウンメニュー -->
-          <select id="tohoku" class="subbox">
-            <option value="">東北地方の県を選択</option>
-            <option value="aomori">青森県</option>
-            <option value="akita">秋田県</option>
-            <option value="iwate">岩手県</option>
-            <option value="miyagi">宮城県</option>
-            <option value="yamagata">山形県</option>
-            <option value="hukusima">福島県</option>
+          <select id="tohoku" class="subbox" required>
+            <option value="" hidden>東北地方の県を選択</option>
+            <option value="青森">青森県</option>
+            <option value="秋田">秋田県</option>
+            <option value="岩手">岩手県</option>
+            <option value="宮城">宮城県</option>
+            <option value="山形">山形県</option>
+            <option value="福島">福島県</option>
           </select>
 
           <!-- ================================================================ -->
           <!-- (※4)▼項目「関東地方」に対応する2段階目(サブ)のプルダウンメニュー -->
-          <select id="kantou" class="subbox">
-            <option value="">関東地方の県・都を選択</option>
-            <option value="tokyo">東京都</option>
-            <option value="tiba">千葉県</option>
-            <option value="saitama">埼玉県</option>
-            <option value="kanagawa">神奈川県</option>
-            <option value="gunma">群馬県</option>
-            <option value="totigi">栃木県</option>
-            <option value="ibaraki">茨城県</option>
+          <select id="kantou" class="subbox" required>
+            <option value="" hidden>関東地方の県・都を選択</option>
+            <option value="東京">東京都</option>
+            <option value="千葉">千葉県</option>
+            <option value="埼玉">埼玉県</option>
+            <option value="神奈川">神奈川県</option>
+            <option value="群馬">群馬県</option>
+            <option value="栃木">栃木県</option>
+            <option value="茨城">茨城県</option>
           </select>
 
           <!-- ================================================================ -->
           <!-- (※4)▼項目「中部地方」に対応する2段階目(サブ)のプルダウンメニュー -->
-          <select id="tyubu" class="subbox">
-            <option value="">中部地方の県を選択</option>
-            <option value="nigata">新潟県</option>
-            <option value="yamanasi">山梨県</option>
-            <option value="sizuoka">静岡県</option>
-            <option value="nagano">長野県</option>
-            <option value="gihu">岐阜県</option>
-            <option value="aichi">愛知県</option>
-            <option value="toyama">富山県</option>
-            <option value="isii">石井県</option>
-            <option value="hukui">福井県</option>
+          <select id="tyubu" class="subbox" required>
+            <option value="" hidden>中部地方の県を選択</option>
+            <option value="新潟">新潟県</option>
+            <option value="山梨">山梨県</option>
+            <option value="静岡">静岡県</option>
+            <option value="長野">長野県</option>
+            <option value="岐阜">岐阜県</option>
+            <option value="愛知">愛知県</option>
+            <option value="富山">富山県</option>
+            <option value="石川">石川県</option>
+            <option value="福井">福井県</option>
           </select>
 
           <!-- ================================================================ -->
           <!-- (※4)▼項目「近畿地方」に対応する2段階目(サブ)のプルダウンメニュー -->
-          <select id="kinki" class="subbox">
-            <option value="">近畿地方の県・府を選択</option>
-            <option value="kyoto">京都府</option>
-            <option value="osaka">大阪府</option>
-            <option value="siga">滋賀県</option>
-            <option value="hyogo">兵庫県</option>
-            <option value="nara">奈良県</option>
-            <option value="wakayama">和歌山県</option>
-            <option value="mie">三重県</option>
+          <select id="kinki" class="subbox" required>
+            <option value="" hidden>近畿地方の県・府を選択</option>
+            <option value="京都">京都府</option>
+            <option value="大阪">大阪府</option>
+            <option value="滋賀">滋賀県</option>
+            <option value="兵庫">兵庫県</option>
+            <option value="奈良">奈良県</option>
+            <option value="和歌山">和歌山県</option>
+            <option value="三重">三重県</option>
           </select>
 
           <!-- ================================================================ -->
           <!-- (※4)▼項目「中国地方」に対応する2段階目(サブ)のプルダウンメニュー -->
-          <select id="tyugoku" class="subbox">
-            <option value="">中国地方の県を選択</option>
-            <option value="totori">鳥取県</option>
-            <option value="simane">島根県</option>
-            <option value="okayama">岡山県</option>
-            <option value="hirosima">広島県</option>
-            <option value="yamaguti">山口県</option>
+          <select id="tyugoku" class="subbox" required>
+            <option value="" hidden>中国地方の県を選択</option>
+            <option value="鳥取">鳥取県</option>
+            <option value="島根">島根県</option>
+            <option value="岡山">岡山県</option>
+            <option value="広島">広島県</option>
+            <option value="山口">山口県</option>
           </select>
 
           <!-- ================================================================ -->
           <!-- (※4)▼項目「四国地方」に対応する2段階目(サブ)のプルダウンメニュー -->
-          <select id="sikoku" class="subbox">
-            <option value="">四国地方の県を選択</option>
-            <option value="ehime">愛媛県</option>
-            <option value="koti">高知県</option>
-            <option value="tokusima">徳島県</option>
-            <option value="kagawa">香川県</option>
+          <select id="sikoku" class="subbox" required>
+            <option value="" hidden>四国地方の県を選択</option>
+            <option value="愛媛">愛媛県</option>
+            <option value="高知">高知県</option>
+            <option value="徳島">徳島県</option>
+            <option value="香川">香川県</option>
           </select>
 
           <!-- ================================================================ -->
           <!-- (※4)▼項目「九州地方」に対応する2段階目(サブ)のプルダウンメニュー -->
-          <select id="kyusyu" class="subbox">
-            <option value="">九州地方の県を選択</option>
+          <select id="kyusyu" class="subbox" required>
+            <option value="" hidden>九州地方の県を選択</option>
             <option value="福岡">福岡県</option>
             <option value="佐賀">佐賀県</option>
             <option value="長崎">長崎県</option>
@@ -176,14 +176,15 @@
       var executePythonButton = document.getElementById("mapper");
 
       executePythonButton.addEventListener("click", () => {
-        const kyusyuSelect = document.getElementById("kyusyu");
+        const Select = document.getElementById("select");
+        const subSelect = document.getElementById(Select.value);
         const categorySelect = document.getElementById("category");
 
-        const selectedKyusyu = kyusyuSelect.value;
+        const selectedsub = subSelect.value;
         const selectedCategory = categorySelect.value;
 
         // 選択された県とカテゴリを結合
-        const combinedValue = selectedKyusyu + selectedCategory;
+        const combinedValue = selectedsub + selectedCategory;
         console.log(combinedValue);
 
         // テキストボックスの値をサーバーに送信してハッシュタグを変更
@@ -197,13 +198,16 @@
         })
           .then((response) => response.json())
           .then((data) => {
+            // 最初のfetchリクエストが完了した後に実行されるコード
             // alert(data.message);
-          });
 
-        console.log("起動中です");
-        fetch("http://localhost:3000/runcode")
+            console.log("起動中です");
+            // 2つめのfetchリクエストを実行
+            return fetch("http://localhost:3000/runcode");
+          })
           .then((response) => response.json())
           .then((data) => {
+            // 2つめのfetchリクエストが完了した後に実行されるコード
             const addresses = data; // サーバーからのデータをJavaScriptの配列として直接取得
             console.log("Addresses:", addresses);
             localStorage.setItem("Addresses", JSON.stringify(addresses));
@@ -212,6 +216,7 @@
           .catch((error) => {
             console.error("Error:", error);
           });
+
       });
     </script>
     <script type="text/javascript">
