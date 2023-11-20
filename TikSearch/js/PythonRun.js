@@ -32,7 +32,7 @@ app.post("/changeHashtag", (req, res) => {
 // ハッシュタグを使用してコードを実行
 app.get("/runcode", (req, res) => {
   exec(
-    `python C:/xampp3/htdocs/TIKSearch/python/hashtag_example.py --hashtag ${hashtagValue}`,
+    `python ../python/hashtag_example.py --hashtag ${hashtagValue}`,
     (error, stdout, stderr) => {
       if (error) {
         console.error("エラー: ", error);
