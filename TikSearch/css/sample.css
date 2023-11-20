@@ -1,6 +1,6 @@
-#bar {
+/* #bar {
     display: none;
-   }
+   } */
 /* ▼プルダウンメニューを囲む枠の装飾 */
 .pulldownset {
     /*border: 3px double #0000cc;  /* 青色の二重線(3px) */
@@ -21,4 +21,7 @@
  }
  .subbox{
     border-radius: 10px;
+ }
+ #status{
+   display: none;
  }
