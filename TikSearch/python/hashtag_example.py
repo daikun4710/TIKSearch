@@ -10,7 +10,7 @@ parser = argparse.ArgumentParser(description="Get TikTok videos by hashtag")
 parser.add_argument("--hashtag", type=str, help="Hashtag to search for", required=True)
 args = parser.parse_args()
 
-ms_token = os.environ.get("ms_token", "E7hDXPgowjq7BqwVr0wDUiiT5-FvJBa2PBbqVSglGVMtc0FJOn-Ycxh1fe_mIAx-zu9knGwbABXjmFCqWFV405-By_qdd_NUUin3sAAwjNyqann4wSQw3kUDIwv8jCVqmkBDoRFf6O2KvtI=")  # set your own ms_token
+ms_token = os.environ.get("ms_token","9YKCs1YoKTLYWjaGyFOEUwIqjiun59MZH4fLnoGIyciHAN_3krAsU4KT0kF8jA-m22enIuKr_o2xFCqg_WWfUb7x5GmITLssl35bzHsScqqBLmJjjHBUt2He6RKG0OafJpYtt65mzS-s39IOmWE=")  # set your own ms_token
 
 async def get_hashtag_videos():
     async with TikTokApi() as api:

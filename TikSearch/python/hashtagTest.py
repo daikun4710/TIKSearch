@@ -5,7 +5,7 @@ import sys
 sys.stdout.reconfigure(encoding='utf-8')
 #utf-8エンコーディング
 
-ms_token = os.environ.get("ms_token","7-Xer3neNEVCuOhzJ4T6ah5XPvHJ7evMgLWT4fzw7otBMKZcK2L06kXtRBgZZKnGhtHDfAPdRvlcIi1xZUvAlyTDHDr1UlQKqfTh2Vxl0v-LmYe04lCCD2LO6NTVsWh3KnKGtuV6jppZTgUQ")  # set your own ms_token
+ms_token = os.environ.get("ms_token","9YKCs1YoKTLYWjaGyFOEUwIqjiun59MZH4fLnoGIyciHAN_3krAsU4KT0kF8jA-m22enIuKr_o2xFCqg_WWfUb7x5GmITLssl35bzHsScqqBLmJjjHBUt2He6RKG0OafJpYtt65mzS-s39IOmWE=")  # set your own ms_token
 
 async def get_hashtag_videos():
     async with TikTokApi() as api:
