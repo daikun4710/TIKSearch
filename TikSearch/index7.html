@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
     <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    <!-- ApiKeyがあるファイル読み込み -->
+    <script type="text/javascript" src="js/mapApiKey.js"></script>
     <title>Google Map with Info Window and Link</title>
     <style>
       #map {
@@ -80,7 +82,9 @@
             geocoder.geocode({ address: address }, function (results, status) {
             if (status === "OK") {
                 var location = results[0].geometry.location;
-
+      // 場所の精度を取得
+                var locationType = results[0].geometry.location_type;
+                // console.log(locationType); 
                 // ピンを作成
                 var marker = new google.maps.Marker({
                     position: location,
@@ -95,7 +99,8 @@
                     '</h3><p><a href="https://www.tiktok.com/@'+
                       currentUsername+'/video/'+
                       currentID+'" target="_blank">サイトへのリンク</a></p><p><img src="'
-                        +currentThumbnail+'" alt="サムネイル" height="320"></p></div>';
+                        +currentThumbnail+'" alt="サムネイル" height="320"></p>'+
+                        locationType+'</div>';
 
                 // ピンをクリックしたときのイベントリスナー
                 marker.addListener("click", function () {
@@ -113,15 +118,23 @@
 
       }
       // var dataArray = JSON.parse(localStorage.getItem("Addresses"));
-      //検索情報出力
+      // 検索情報出力
       // console.log(dataArray);
+      // Google Maps API の API キーを取得
+      const googleMapsApiKey = config.mapApiKey;
+      //ApiKey　script作成
+      const mapApiScript = document.createElement("script");
+      mapApiScript.src = "https://maps.googleapis.com/maps/api/js?key="+googleMapsApiKey+"&callback=initMap";
+      mapApiScript.async = true;
+      mapApiScript.defer = true;
+      document.head.appendChild(mapApiScript);
     </script>
-
+    <!-- 
     <script
       async
       defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUqiDP-1T8cxCyJRYrel2GIcAlz5_vgAE&callback=initMap"
-    ></script>
+      src="https://maps.googleapis.com/maps/api/js?key=${googleMapsApiKey}&callback=initMap"
+    ></script> -->
     <py-script> print(19) </py-script>
   </body>
 </html>
