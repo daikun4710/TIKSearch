@@ -82,34 +82,36 @@
             geocoder.geocode({ address: address }, function (results, status) {
             if (status === "OK") {
                 var location = results[0].geometry.location;
-      // 場所の精度を取得
+                // 場所の精度を取得
                 var locationType = results[0].geometry.location_type;
-                // console.log(locationType); 
-                // ピンを作成
-                var marker = new google.maps.Marker({
-                    position: location,
-                    map: map,
-                    title: address,
-                });
+                if (locationType!="APPROXIMATE" ||locationType!="GEOMETRIC_CENTER") {
+                  // ピンを作成
+                  var marker = new google.maps.Marker({
+                      position: location,
+                      map: map,
+                      title: address,
+                  });
 
-                // 詳細情報ウィンドウの内容
-                var contentString =
-                    "<div><h3>" +
-                    address +
-                    '</h3><p><a href="https://www.tiktok.com/@'+
-                      currentUsername+'/video/'+
-                      currentID+'" target="_blank">サイトへのリンク</a></p><p><img src="'
-                        +currentThumbnail+'" alt="サムネイル" height="320"></p>'+
-                        locationType+'</div>';
+                  // 詳細情報ウィンドウの内容
+                  var contentString =
+                      "<div><h3>" +
+                      address +
+                      '</h3><p><a href="https://www.tiktok.com/@'+
+                        currentUsername+'/video/'+
+                        currentID+'" target="_blank">サイトへのリンク</a></p><p><img src="'
+                          +currentThumbnail+'" alt="サムネイル" height="320"></p>'+
+                          locationType+'</div>';
 
-                // ピンをクリックしたときのイベントリスナー
-                marker.addListener("click", function () {
-                    // 詳細情報ウィンドウに内容をセット
-                    infoWindow.setContent(contentString);
+                  // ピンをクリックしたときのイベントリスナー
+                  marker.addListener("click", function () {
+                      // 詳細情報ウィンドウに内容をセット
+                      infoWindow.setContent(contentString);
 
-                    // ピンの位置にウィンドウを表示
-                    infoWindow.open(map, marker);
-                });
+                      // ピンの位置にウィンドウを表示
+                      infoWindow.open(map, marker);
+                  });
+                }
+                
             } else {
                 alert("ジオコーディングに失敗しました: " + status);
             }
@@ -133,8 +135,7 @@
     <script
       async
       defer
-      src="https://maps.googleapis.com/maps/api/js?key=${googleMapsApiKey}&callback=initMap"
+      src=""
     ></script> -->
-    <py-script> print(19) </py-script>
   </body>
 </html>
