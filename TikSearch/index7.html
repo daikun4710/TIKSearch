@@ -83,8 +83,8 @@
             if (status === "OK") {
                 var location = results[0].geometry.location;
                 // 場所の精度を取得
-                var locationType = results[0].geometry.location_type;
-                if (locationType!="APPROXIMATE" ||locationType!="GEOMETRIC_CENTER") {
+                const locationType = results[0].geometry.location_type;
+                if (locationType!=="APPROXIMATE"||locationType!=="GEOMETRIC_CENTER") {
                   // ピンを作成
                   var marker = new google.maps.Marker({
                       position: location,
