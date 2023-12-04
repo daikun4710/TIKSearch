@@ -190,14 +190,13 @@
       });
     </script> -->
     <script>
-      let combinedValue = "";
-      let bool = "";
       function startLoading() {
         const Select = document.getElementById("select");
         const subSelect = document.getElementById(Select.value);
         const categorySelect = document.getElementById("category");
         // const checkBox = document.getElementById("foo");
-       
+        let combinedValue = "";
+        let bool = "";
         if(Select.value === "" || categorySelect.value === "" ){
           alert("カテゴリまたは場所を選択して下さい");
           bool = "false";
