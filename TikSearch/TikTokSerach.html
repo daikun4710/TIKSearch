@@ -244,6 +244,8 @@
           })
           .catch((error) => {
             console.error("Error:", error);
+            loadingGif.style.display = 'none';
+            statusElement.textContent = 'エラーが発生しました。';
           });
          }
         }
