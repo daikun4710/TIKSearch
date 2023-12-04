@@ -84,7 +84,7 @@
                 var location = results[0].geometry.location;
                 // 場所の精度を取得
                 const locationType = results[0].geometry.location_type;
-                if (locationType!=="APPROXIMATE"||locationType!=="GEOMETRIC_CENTER") {
+                if (locationType==='ROOFTOP'||locationType==='RANGE_INTERPOLATED') {
                   // ピンを作成
                   var marker = new google.maps.Marker({
                       position: location,
