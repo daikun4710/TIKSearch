@@ -14,6 +14,7 @@
   </head>
  
   <body>
+   
     <div class="logo">
       <a href=""
         ><img class="logoimg" src="./image/タイトル2_仮_-removebg-preview.png"
@@ -174,7 +175,7 @@
       type="text/javascript"
       src="https://code.jquery.com/jquery-1.12.4.js"
     ></script>
-    <script>
+    <!-- <script>
       $(function () {
         $("input#foo[type=checkbox]").click(function () {
           if ($(this).prop("checked")) {
@@ -184,7 +185,7 @@
           }
         });
       });
-    </script>
+    </script> -->
     <script>
       let combinedValue = "";
       let bool = "";
@@ -241,10 +242,12 @@
             addresses = data; // サーバーからのデータをJavaScriptの配列として直接取得
             console.log("Addresses:", addresses);
             localStorage.setItem("Addresses", JSON.stringify(addresses));
-            location.href = `./index7.html`;
+            location.href = `./index7.html?20231204v2`;
           })
           .catch((error) => {
             console.error("Error:", error);
+            loadingGif.style.display = 'none';
+            statusElement.textContent = 'エラーが発生しました。';
           });
          }
 
