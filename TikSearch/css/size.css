@@ -1,8 +1,40 @@
 body{
-    background-color: #aa5555;
+    background-image:url(../image/nihon4.png);
+    background-size: cover;
     margin:0;
 }
+
 .mapp{
     text-align: center;
     
+}
+.subbox{
+    margin-top:20px;
+}
+.center{
+    text-align: center;
+}
+#mapper{
+    background-color: #ffc684;
+    color: white;
+    width: 300px;
+    height: 60px;
+    font-size: 20px;
+    border-radius: 10px;      
+}
+button{
+    width: 300px;
+    height: 60px;
+    font-size: 20px;
+}
+.sitayose {
+    margin-top: 200px;
+    text-align: center;
+    margin-bottom:20px;
+  }
+.sitayose h1{
+    margin:0;
+    font-size:20px;
+    color: rgb(35, 1, 1);
+    font-weight: 100px;
 }

@@ -15,10 +15,16 @@
  }
  .radis{
     border-radius: 10px;
+    height:30px;
+    width:auto;
  }
  .mainselect{
     border-radius:10px;
+    height:30px;
+    width:auto;
  }
  .subbox{
     border-radius: 10px;
+    height:30px;
+    width:auto;
  }
