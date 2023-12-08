@@ -27,20 +27,20 @@ async def user_example():
         async for video in user.videos(count=5):
             video_description = video.as_dict['desc']
             print("動画の概要欄:", video_description)
+            print(video)
             
-            unique_store_names1 = extract_unique_store_names(video_description)
-            print("一意の店名:", unique_store_names1)
+            # unique_store_names1 = extract_unique_store_names(video_description)
+            # print("一意の店名:", unique_store_names1)
         
-            doc = nlp(video_description)
-            for ent in doc.ents:
-                print(f"テキスト: {ent.text}, カテゴリ: {ent.label_}")
+            # doc = nlp(video_description)
+            # for ent in doc.ents:
+            #     print(f"テキスト: {ent.text}, カテゴリ: {ent.label_}")
+            # pattern = r"([^\d\s]+)"
+            # matches = re.findall(pattern, video_description)
+            # print("matches配列の型", type(matches))
 
-            pattern = r"([^\d\s]+)"
-            matches = re.findall(pattern, video_description)
-            print("matches配列の型", type(matches))
-
-            for match in matches:
-                print("店名:", match)
+            # for match in matches:
+            #     print("店名:", match)
 
 if __name__ == "__main__":
     asyncio.run(user_example())

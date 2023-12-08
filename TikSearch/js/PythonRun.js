@@ -8,7 +8,7 @@ const { exec } = require("child_process");
 app.use(cors());
 
 // 動的に変更したいハッシュタグ
-let hashtagValue = "福岡グルメ";
+let hashtagValue = "";
 
 app.use(express.json());
 
@@ -32,7 +32,7 @@ app.post("/changeHashtag", (req, res) => {
 // ハッシュタグを使用してコードを実行
 app.get("/runcode", (req, res) => {
   exec(
-    `python C:/Users/maeda/Downloads/SD3A/TIKSearch/python/hashtag_example.py --hashtag ${hashtagValue}`,
+    `python ./TikSearch/python/hashtag_example.py --hashtag ${hashtagValue}`,
     (error, stdout, stderr) => {
       if (error) {
         console.error("エラー: ", error);
