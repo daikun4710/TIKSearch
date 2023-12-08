@@ -17,7 +17,7 @@
    
     <div class="logo">
       <a href=""
-        ><img class="logoimg" src="./image/タイトル2_仮_-removebg-preview.png"
+        ><img class="logoimg" src="./image/タイトル2_仮.png"
       /></a>
     </div>
     <div class="sitayose">
@@ -165,7 +165,7 @@
                  $active.removeClass('active last-active');
             });
       }
-      
+     
       $(function() {
          setInterval( "slideSwitch()", 3000 );
       });
@@ -187,18 +187,13 @@
       });
     </script> -->
     <script>
-      let combinedValue = "";
-      let bool = "";
-      // ボタン要素を取得
       function startLoading() {
-    
- 
- 
         const Select = document.getElementById("select");
         const subSelect = document.getElementById(Select.value);
         const categorySelect = document.getElementById("category");
-        const checkBox = document.getElementById("foo");
-       
+        // const checkBox = document.getElementById("foo");
+        let combinedValue = "";
+        let bool = "";
         if(Select.value === "" || categorySelect.value === "" ){
           alert("カテゴリまたは場所を選択して下さい");
           bool = "false";
@@ -216,6 +211,7 @@
  
         if(bool == "true"){
           var executePythonButton = document.getElementById("loadingMessage").style.display = 'block';
+          document.getElementById('loadingMessage').style.display = 'block';
  
         // テキストボックスの値をサーバーに送信してハッシュタグを変更
         fetch("http://localhost:3000/changeHashtag", {
@@ -233,7 +229,7 @@
  
             console.log("起動中です");
             // 2つめのfetchリクエストを実行
-            statusElement.textContent = 'API呼び出し成功。処理中...';
+            // statusElement.textContent = 'API呼び出し成功。処理中...';
             return fetch("http://localhost:3000/runcode");
           })
           .then((response) => response.json())
@@ -250,8 +246,7 @@
             statusElement.textContent = 'エラーが発生しました。';
           });
          }
-
-      }
+        }
     </script>
     <script type="text/javascript">
       // ▼HTMLの読み込み直後に実行：
@@ -290,4 +285,3 @@
     </script>
   </body>
 </html>
- 
