@@ -17,7 +17,7 @@
    
     <div class="logo">
       <a href=""
-        ><img class="logoimg" src="./image/タイトル2_仮_-removebg-preview.png"
+        ><img class="logoimg" src="./image/タイトル2_仮.png"
       /></a>
     </div>
     <div class="sitayose">
@@ -141,27 +141,24 @@
         </div>
       </div>
       <div class="kensaku">
-        <div id="loadingMessage" style="display: none;">実行中...
+        <div id="loadingMessage" style="color:rgb(34,58,112);display: none;font-size: 30px;font-family: Hiragino Sans,ヒラギノ角ゴシック; font-weight: 600;">実行中...
           <img src="image/Walk-unscreen.gif" alt="Loading..." width="50">
         </div>
           <br>
         <button onclick="startLoading()"  class="btn btn-warning" type="button" style="border-radius: 40px;">検索</button>
         </div>
     </div>
-    <script>
-      
-    </script>
     <script type="text/javascript">
       function slideSwitch() {
          var $active = $('#slideshow source.active');
-     
+      
          if ( $active.length == 0 ) $active = $('#slideshow source:last');
-     
+      
          var $next =  $active.next().length ? $active.next()
             : $('#slideshow source:first');
-     
+      
          $active.addClass('last-active');
-     
+      
          $next.css({opacity: 0.0})
             .addClass('active')
             .animate({opacity: 1.0}, 1000, function() {
@@ -213,6 +210,7 @@
         }
  
         if(bool == "true"){
+          var executePythonButton = document.getElementById("loadingMessage").style.display = 'block';
           document.getElementById('loadingMessage').style.display = 'block';
  
         // テキストボックスの値をサーバーに送信してハッシュタグを変更

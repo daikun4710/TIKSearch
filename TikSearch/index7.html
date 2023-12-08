@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
   <head>
+    <meta name="viewport" content="width=device-width,intial-scale=1"/>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <link rel="stylesheet" href="./css/map.css">
     <script defer src="https://pyscript.net/latest/pyscript.js"></script>
     <!-- ApiKeyがあるファイル読み込み -->
     <script type="text/javascript" src="js/mapApiKey.js"></script>
+    <script type="text/javascript" src="js/reSearch.js"></script>
     <title>Google Map with Info Window and Link</title>
     <style>
       #map {
@@ -21,12 +24,13 @@
       }
 
       #addressesList {
-        position: absolute;
-        top: 430px;
+        max-height: 250px; /* スクロール可能な領域の最大の高さ */
+        overflow-y: auto; /* 縦方向にスクロールバーを表示する */
+        margin: 10px;
       }
 
       .serach {
-        position: absolute;
+        /* position: absolute; */
         top: 380px;
         left: 10px;
         font-size: 25px;
@@ -77,15 +81,93 @@
         /* 最後のliの線だけ消す */
       }
     </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
   </head>
   <body>
-    <p class="serach">検索一覧🔍</p>
+    
+    <div id="search-box-container" class="flex_test-box">
+      <div class="flex_test-item">
+        <form action="#">
+          <!-- <label for="category">カテゴリ</label> -->
+          <select id="category">
+            <option value="観光">観光</option>
+            <option value="グルメ">グルメ</option>
+          </select>
+        </form>
+      </div>
+    
+      <div class="flex_test-item">
+        <!-- <label for="place">県</label> -->
+        <select name="place" id="place">
+          <!-- 都道府県のオプション -->
+          <option value="北海道">北海道</option>
+          <option value="青森">青森県</option>
+          <option value="秋田">秋田県</option>
+          <option value="岩手">岩手県</option>
+          <option value="宮城">宮城県</option>
+          <option value="山形">山形県</option>
+          <option value="福島">福島県</option>
+          <option value="東京">東京都</option>
+          <option value="千葉">千葉県</option>
+          <option value="埼玉">埼玉県</option>
+          <option value="神奈川">神奈川県</option>
+          <option value="群馬">群馬県</option>
+          <option value="栃木">栃木県</option>
+          <option value="茨城">茨城県</option>
+          <option value="新潟">新潟県</option>
+          <option value="山梨">山梨県</option>
+          <option value="静岡">静岡県</option>
+          <option value="長野">長野県</option>
+          <option value="岐阜">岐阜県</option>
+          <option value="愛知">愛知県</option>
+          <option value="富山">富山県</option>
+          <option value="石川">石川県</option>
+          <option value="福井">福井県</option>
+          <option value="京都">京都府</option>
+          <option value="大阪">大阪府</option>
+          <option value="滋賀">滋賀県</option>
+          <option value="兵庫">兵庫県</option>
+          <option value="奈良">奈良県</option>
+          <option value="和歌山">和歌山県</option>
+          <option value="三重">三重県</option>
+          <option value="鳥取">鳥取県</option>
+          <option value="島根">島根県</option>
+          <option value="岡山">岡山県</option>
+          <option value="広島">広島県</option>
+          <option value="山口">山口県</option>
+          <option value="愛媛">愛媛県</option>
+          <option value="高知">高知県</option>
+          <option value="徳島">徳島県</option>
+          <option value="香川">香川県</option>
+          <option value="福岡">福岡県</option>
+          <option value="佐賀">佐賀県</option>
+          <option value="長崎">長崎県</option>
+          <option value="熊本">熊本県</option>
+          <option value="大分">大分県</option>
+          <option value="宮崎">宮崎県</option>
+          <option value="鹿児島">鹿児島県</option>
+          <option value="沖縄">沖縄県</option>
+        </select>
+      </div>
+    
+      <div class="flex_test-item">
+        <button type="button" class="btn btn-primary" onclick="startReLoading()">検索</button>
+      </div>
+      <div class="flex_test-item">
+        <div id="loadingMessage" style="color:rgb(34,58,112);display: none;font-size: 30px;font-family: Hiragino Sans,ヒラギノ角ゴシック; font-weight: 600;">実行中...
+          <img src="image/Walk-unscreen.gif" alt="Loading..." width="50">
+        </div>
+      </div>
+    </div>
+
     <div id="map"></div>
+    
+    <p class="serach">検索一覧🔍</p>
     <div>
       <ul id="addressesList">
       </ul>
     </div>
-    <canvas id="Canvas"></canvas>
     <script>
       var map;
       var infoWindow;
@@ -147,7 +229,17 @@
             let currentUsername = addresses[i + 2];//ユーザー名
             let currentThumbnail = addresses[i + 3];//サムネイルurl
             // Display addresses as a list
-            addressesList.innerHTML += "<li>SPOT " + (i + 1) + ":" + address + "</li>";
+            const maxLength = 300; // 表示する最大文字数
+            let truncatedAddress = address; // ここに短縮されたテキストを格納する
+
+            // 文字列の長さが最大文字数を超えている場合、短縮する
+            if (address.length > maxLength) {
+              truncatedAddress = address.substring(0, maxLength) + '...';
+            }
+
+            addressesList.innerHTML += '<li style="display: flex; align-items: center;"><img src="' + currentThumbnail
+                                      + '" alt="サムネイル" height="200"><div style="height:200px; margin-left: 10px; display: flex; align-items: center;"><span style="text-align: center; width: 100%;">' + truncatedAddress + '</span></div></li>';
+
             // console.log("Address " + (i + 1) + ": " + addressArray[i]);
             geocoder.geocode({ address: address }, function (results, status) {
             if (status === "OK") {
@@ -181,9 +273,6 @@
                       infoWindow.open(map, marker);
                   });
                 }
-                
-            } else {
-                alert("ジオコーディングに失敗しました: " + status);
             }
         });
         }
@@ -201,12 +290,6 @@
       mapApiScript.defer = true;
       document.head.appendChild(mapApiScript);
     </script>
-    <!-- 
-    <script
-      async
-      defer
-      src=""
-    ></script> -->
   </body>
 </html>
 
