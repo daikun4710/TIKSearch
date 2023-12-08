@@ -1,92 +1,95 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8" />
-  <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
-  <script defer src="https://pyscript.net/latest/pyscript.js"></script>
-  <title>Google Map with Info Window and Link</title>
-  <style>
-     body{
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    <!-- ApiKeyがあるファイル読み込み -->
+    <script type="text/javascript" src="js/mapApiKey.js"></script>
+    <title>Google Map with Info Window and Link</title>
+    <style>
+      #map {
+        height: 400px;
+        width: 100%;
+      }
+      body{
       margin:0;
-    }
+      }
+      #map {
+        height: 400px;
+        width: 100%;
+      }
 
-    #map {
-      height: 400px;
-      width: 100%;
-    }
+      #addressesList {
+        position: absolute;
+        top: 430px;
+      }
 
-    #addressesList {
-      position: absolute;
-      top: 430px;
-    }
+      .serach {
+        position: absolute;
+        top: 380px;
+        left: 10px;
+        font-size: 25px;
+      }
 
-    .serach {
-      position: absolute;
-      top: 380px;
-      left: 10px;
-      font-size: 25px;
-    }
+      ul {
+        counter-reset: number;
+        /* カウンターをリセット */
+        list-style-type: none !important;
+        /* 番号を消す */
+        padding: 0.3em 0.8em;
+        border: solid 2px #ffb107;
+      }
+      ul li {
+        border-bottom: dashed 1px orange;
+        position: relative;
+        padding: 0.5em 0.5em 0.5em 30px;
+        line-height: 1.5em;
+        counter-increment: number;
+        /* 各li要素ごとにカウンターを増やす */
+      }
 
-    ul {
-      counter-reset: number;
-      /* カウンターをリセット */
-      list-style-type: none !important;
-      /* 番号を消す */
-      padding: 0.3em 0.8em;
-      border: solid 2px #ffb107;
-    }
-
-    ul li {
-      border-bottom: dashed 1px orange;
-      position: relative;
-      padding: 0.5em 0.5em 0.5em 30px;
-      line-height: 1.5em;
-      counter-increment: number;
-      /* 各li要素ごとにカウンターを増やす */
-    }
-
-    ul li:after {
-      /* ここで番号を指定 */
-      position: absolute;
-      content: counter(number);
-      /* カウンターの値を表示 */
-      /* 番号のスタイル */
-      display: inline-block;
-      background: #ffb107;
-      color: white;
-      font-family: 'Avenir', 'Arial Black', 'Arial', sans-serif;
-      font-weight: bold;
-      font-size: 15px;
-      border-radius: 50%;
-      left: 0;
-      width: 25px;
-      height: 25px;
-      line-height: 25px;
-      text-align: center;
-      /* 縦方向の中央揃え */
-      top: 50%;
-      -webkit-transform: translateY(-50%);
-      transform: translateY(-50%);
-    }
-
-    ul li:last-of-type {
-      border-bottom: none;
-      /* 最後のliの線だけ消す */
-    }
-  </style>
-</head>
-<body>
-  <p class="serach">検索一覧🔍</p>
-  <div id="map"></div>
-  <div>
-    <ul id="addressesList">
-    </ul>
-  </div>
-  <canvas id="Canvas"></canvas>
-  <script>
-    var map;
-    var infoWindow;
-    function initMap() {
+      ul li:after {
+        /* ここで番号を指定 */
+        position: absolute;
+        content: counter(number);
+        /* カウンターの値を表示 */
+        /* 番号のスタイル */
+        display: inline-block;
+        background: #ffb107;
+        color: white;
+        font-family: 'Avenir', 'Arial Black', 'Arial', sans-serif;
+        font-weight: bold;
+        font-size: 15px;
+        border-radius: 50%;
+        left: 0;
+        width: 25px;
+        height: 25px;
+        line-height: 25px;
+        text-align: center;
+        /* 縦方向の中央揃え */
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+      }
+      ul li:last-of-type {
+        border-bottom: none;
+        /* 最後のliの線だけ消す */
+      }
+    </style>
+  </head>
+  <body>
+    <p class="serach">検索一覧🔍</p>
+    <div id="map"></div>
+    <div>
+      <ul id="addressesList">
+      </ul>
+    </div>
+    <canvas id="Canvas"></canvas>
+    <script>
+      var map;
+      var infoWindow;
+      function initMap() {
       // マップを表示するためのオプションを設定
       var mapOptions = {
         center: { lat: 0, lng: 0 }, // マップの初期中心位置
@@ -128,57 +131,82 @@
       }
       // 情報ウィンドウを初期化
       infoWindow = new google.maps.InfoWindow();
-      // ピンを立てたい住所
-      var addressArray = [
-        "水深162cmの日本一深い温泉がやばすぎた…173cmの俺は息出来なかった🤣 📍熊本県南小国町　こうの湯 #熊本 #こうの湯 #熊本温泉",
-        "糸島で1番うまいと噂の焼肉屋さん調査してきたカンジャンケジャン食べ放題は最高すぎる📍福岡県糸島市　#上の焼肉屋\お店の公式アカウント→ @ueno.yakinikuyaOpen 11:00〜20:00※水曜定休日",
-        "まるでテーマパークみたいな福岡の穴場絶景ホテルが最高すぎた件について😳♨️一見めちゃくちゃ高そうに見えるこのホテル…ここだけの話意外とお手頃な値段で泊まれちゃうんだ🤫大人数でも泊まれるし今からの忘年会シーズンにも持ってこいの宿だぜ❤️‍🔥👍🏻📍福岡県岡垣町　#海辺の鮨宿八幡屋※予約方法やプランの料金詳細は公式サイトからチェックしてね🔥"
-      ];
-      // Log and display each address in the array
-      var addressesList = document.getElementById("addressesList");
-      for (var i = 0; i < addressArray.length; i++) {
-        console.log("Address " + (i + 1) + ": " + addressArray[i]);
-        // Display addresses as a list
-        addressesList.innerHTML += "<li>SPOT " + (i + 1) + ":" + addressArray[i] + "</li>";
-      }
-      // ジオコーディングを実行
-      for (var i = 0; i < addressArray.length; i++) {
-        geocodeAddress(addressArray[i]);
-      }
-    }
-    function geocodeAddress(address) {
-      var geocoder = new google.maps.Geocoder();
-      geocoder.geocode({ address: address }, function (results, status) {
-        if (status === "OK") {
-          var location = results[0].geometry.location;
-          // ピンを作成
-          var marker = new google.maps.Marker({
-            position: location,
-            map: map,
-            title: address,
-          });
-          // 詳細情報ウィンドウの内容
-          var contentString =
-            "<div>サンプル<h3>" +
-            address +
-            '</h3><p>詳細情報がここに表示されます。</p><p><a href="https://www.tiktok.com/@yuuuuto38/video/7293401284609150216?q=%E7%A6%8F%E5%B2%A1%E8%A6%B3%E5%85%89&t=7150595195619282178" target="_blank">サイトへのリンク</a></p></div>';
-          // ピンをクリックしたときのイベントリスナー
-          marker.addListener("click", function () {
-            // 詳細情報ウィンドウに内容をセット
-            infoWindow.setContent(contentString);
-            // ピンの位置にウィンドウを表示
-            infoWindow.open(map, marker);
-          });
-        } else {
-          alert("ジオコーディングに失敗しました: " + status);
+
+        // ピンを立てたい住所
+        const addressesData = JSON.parse(localStorage.getItem("Addresses"));
+        //addressesData の中の　addresses を取り出す
+        let addresses = addressesData.addresses;
+        // Log and display each address in the array
+        var addressesList = document.getElementById("addressesList");
+        // ジオコーディングを実行
+        var geocoder = new google.maps.Geocoder();
+        // 4 つごとにまとまっていると仮定してループ
+        for (let i = 0; i < addresses.length; i += 4) {
+            let address = addresses[i];//住所
+            let currentID = addresses[i + 1]; //動画ID
+            let currentUsername = addresses[i + 2];//ユーザー名
+            let currentThumbnail = addresses[i + 3];//サムネイルurl
+            // Display addresses as a list
+            addressesList.innerHTML += "<li>SPOT " + (i + 1) + ":" + address + "</li>";
+            // console.log("Address " + (i + 1) + ": " + addressArray[i]);
+            geocoder.geocode({ address: address }, function (results, status) {
+            if (status === "OK") {
+                var location = results[0].geometry.location;
+                // 場所の精度を取得
+                const locationType = results[0].geometry.location_type;
+                if (locationType==='ROOFTOP'||locationType==='RANGE_INTERPOLATED') {
+                  // ピンを作成
+                  var marker = new google.maps.Marker({
+                      position: location,
+                      map: map,
+                      title: address,
+                  });
+
+                  // 詳細情報ウィンドウの内容
+                  var contentString =
+                      "<div><h3>" +
+                      address +
+                      '</h3><p><a href="https://www.tiktok.com/@'+
+                        currentUsername+'/video/'+
+                        currentID+'" target="_blank">サイトへのリンク</a></p><p><img src="'
+                          +currentThumbnail+'" alt="サムネイル" height="320"></p>'+
+                          locationType+'</div>';
+
+                  // ピンをクリックしたときのイベントリスナー
+                  marker.addListener("click", function () {
+                      // 詳細情報ウィンドウに内容をセット
+                      infoWindow.setContent(contentString);
+
+                      // ピンの位置にウィンドウを表示
+                      infoWindow.open(map, marker);
+                  });
+                }
+                
+            } else {
+                alert("ジオコーディングに失敗しました: " + status);
+            }
+        });
         }
-      });
-    }
-    var dataArray = JSON.parse(localStorage.getItem("Addresses"));
-    //検索情報出力
-    console.log(dataArray);
-  </script>
-  <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUqiDP-1T8cxCyJRYrel2GIcAlz5_vgAE&callback=initMap"></script>
-</body>
+
+      }
+      // var dataArray = JSON.parse(localStorage.getItem("Addresses"));
+      // 検索情報出力
+      // console.log(dataArray);
+      // Google Maps API の API キーを取得
+      const googleMapsApiKey = config.mapApiKey;
+      //ApiKey　script作成
+      const mapApiScript = document.createElement("script");
+      mapApiScript.src = "https://maps.googleapis.com/maps/api/js?key="+googleMapsApiKey+"&callback=initMap";
+      mapApiScript.async = true;
+      mapApiScript.defer = true;
+      document.head.appendChild(mapApiScript);
+    </script>
+    <!-- 
+    <script
+      async
+      defer
+      src=""
+    ></script> -->
+  </body>
 </html>
+
