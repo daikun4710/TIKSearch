@@ -1,27 +1,23 @@
-function startLoading() {
-    const Select = document.getElementById("select");
-    const subSelect = document.getElementById(Select.value);
-    const categorySelect = document.getElementById("category");
-    // const checkBox = document.getElementById("foo");
-    let combinedValue = "";
-    let bool = "";
-    if(Select.value === "" || categorySelect.value === "" ){
-      alert("カテゴリまたは場所を選択して下さい");
-      bool = "false";
-    }else if(subSelect.value !== ""){
-      const selectedsub = subSelect.value;
-      const selectedCategory = categorySelect.value;
-      // 選択された県とカテゴリを結合
-      combinedValue = selectedsub + selectedCategory;
-      console.log(combinedValue);
-      bool = "true";
-    }else{
-      alert("地域を選択してください");
-      bool = "false";
-    }
+function startReLoading() {
+    let selectElement = document.getElementById('place');
+    
+    // 選択されたオプションのインデックスを取得
+    let selectedIndex = selectElement.selectedIndex;
+    
+    // 選択されたオプションの値を取得
+    let selectedValue = selectElement.options[selectedIndex].value;
+    
+    // 取得した値を出力（例: コンソールログ）
+    console.log('選択された県の値は: ' + selectedValue);
 
-    if(bool == "true"){
-      document.getElementById('loadingMessage').style.display = 'block';
+    const categorySelect = document.getElementById("category");
+    let combinedValue = "";
+    const selectedCategory = categorySelect.value;
+    console.log(selectedCategory);
+    // 選択された県とカテゴリを結合
+    combinedValue = selectedValue + selectedCategory;
+    console.log(combinedValue);
+    document.getElementById('loadingMessage').style.display = 'block';
 
     // テキストボックスの値をサーバーに送信してハッシュタグを変更
     fetch("http://localhost:3000/changeHashtag", {
@@ -50,9 +46,10 @@ function startLoading() {
         localStorage.removeItem("Addresses");
         localStorage.setItem("Addresses", JSON.stringify(addresses));
         location.href = window.location.href;
+        document.getElementById('loadingMessage').style.display = 'none';
       })
       .catch((error) => {
         console.error("Error:", error);
       });
-     }
+     
     }
