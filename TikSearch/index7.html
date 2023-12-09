@@ -8,6 +8,7 @@
     <script defer src="https://pyscript.net/latest/pyscript.js"></script>
     <!-- ApiKeyがあるファイル読み込み -->
     <script type="text/javascript" src="js/mapApiKey.js"></script>
+    <script type="text/javascript" src="js/reSearch.js"></script>
     <title>Google Map with Info Window and Link</title>
     <style>
       #map {
@@ -20,69 +21,83 @@
   </head>
   <body>
     <div id="map"></div>
+
     <div id="search-box-container" class="flex_test-box">
-    <div class="flex_test-item">
-      <form action="#">
-        <!-- <label for="category">カテゴリ</label> -->
-        <select id="category">
-          <option value="sightseeing">観光</option>
-          <option value="foods">グルメ</option>
-        </select>
-      <form action="#">
+      <div class="flex_test-item">
+        <form action="#">
+          <!-- <label for="category">カテゴリ</label> -->
+          <select id="category">
+            <option value="観光">観光</option>
+            <option value="グルメ">グルメ</option>
+          </select>
+        </form>
+      </div>
+    
+      <div class="flex_test-item">
         <!-- <label for="place">県</label> -->
         <select name="place" id="place">
-          <option value="ho">北海道</option>
-          <option value="aomori">青森県</option>
-          <option value="akita">秋田県</option>
-          <option value="iwate">岩手県</option>
-          <option value="miyagi">宮城県</option>
-          <option value="yamagata">山形県</option>
-          <option value="hukusima">福島県</option>
-          <option value="tokyo">東京都</option>
-          <option value="tiba">千葉県</option>
-          <option value="saitama">埼玉県</option>
-          <option value="kanagawa">神奈川県</option>
-          <option value="gunma">群馬県</option>
-          <option value="totigi">栃木県</option>
-          <option value="ibaraki">茨城県</option>
-          <option value="nigata">新潟県</option>
-          <option value="yamanasi">山梨県</option>
-          <option value="sizuoka">静岡県</option>
-          <option value="nagano">長野県</option>
-          <option value="gihu">岐阜県</option>
-          <option value="aichi">愛知県</option>
-          <option value="toyama">富山県</option>
-          <option value="isii">石井県</option>
-          <option value="hukui">福井県</option>
-          <option value="kyoto">京都府</option>
-          <option value="osaka">大阪府</option>
-          <option value="siga">滋賀県</option>
-          <option value="hyogo">兵庫県</option>
-          <option value="nara">奈良県</option>
-          <option value="wakayama">和歌山県</option>
-          <option value="mie">三重県</option>
-          <option value="totori">鳥取県</option>
-          <option value="simane">島根県</option>
-          <option value="okayama">岡山県</option>
-          <option value="hirosima">広島県</option>
-          <option value="yamaguti">山口県</option>
-          <option value="ehime">愛媛県</option>
-          <option value="koti">高知県</option>
-          <option value="tokusima">徳島県</option>
-          <option value="kagawa">香川県</option>
-          <option value="hukuoka">福岡県</option>
-          <option value="saga">佐賀県</option>
-          <option value="nagaskai">長崎県</option>
-          <option value="kumamoto">熊本県</option>
-          <option value="oita">大分県</option>
-          <option value="miyazaki">宮崎県</option>
-          <option value="kagosima">鹿児島県</option>
-          <option value="okinawa">沖縄県</option>
-          </select>
-          <button type="button" class="btn btn-primary">検索</button>
-      </form>
+          <!-- 都道府県のオプション -->
+          <option value="北海道">北海道</option>
+          <option value="青森">青森県</option>
+          <option value="秋田">秋田県</option>
+          <option value="岩手">岩手県</option>
+          <option value="宮城">宮城県</option>
+          <option value="山形">山形県</option>
+          <option value="福島">福島県</option>
+          <option value="東京">東京都</option>
+          <option value="千葉">千葉県</option>
+          <option value="埼玉">埼玉県</option>
+          <option value="神奈川">神奈川県</option>
+          <option value="群馬">群馬県</option>
+          <option value="栃木">栃木県</option>
+          <option value="茨城">茨城県</option>
+          <option value="新潟">新潟県</option>
+          <option value="山梨">山梨県</option>
+          <option value="静岡">静岡県</option>
+          <option value="長野">長野県</option>
+          <option value="岐阜">岐阜県</option>
+          <option value="愛知">愛知県</option>
+          <option value="富山">富山県</option>
+          <option value="石川">石川県</option>
+          <option value="福井">福井県</option>
+          <option value="京都">京都府</option>
+          <option value="大阪">大阪府</option>
+          <option value="滋賀">滋賀県</option>
+          <option value="兵庫">兵庫県</option>
+          <option value="奈良">奈良県</option>
+          <option value="和歌山">和歌山県</option>
+          <option value="三重">三重県</option>
+          <option value="鳥取">鳥取県</option>
+          <option value="島根">島根県</option>
+          <option value="岡山">岡山県</option>
+          <option value="広島">広島県</option>
+          <option value="山口">山口県</option>
+          <option value="愛媛">愛媛県</option>
+          <option value="高知">高知県</option>
+          <option value="徳島">徳島県</option>
+          <option value="香川">香川県</option>
+          <option value="福岡">福岡県</option>
+          <option value="佐賀">佐賀県</option>
+          <option value="長崎">長崎県</option>
+          <option value="熊本">熊本県</option>
+          <option value="大分">大分県</option>
+          <option value="宮崎">宮崎県</option>
+          <option value="鹿児島">鹿児島県</option>
+          <option value="沖縄">沖縄県</option>
+        </select>
+      </div>
+    
+      <div class="flex_test-item">
+        <button type="button" class="btn btn-primary" onclick="startReLoading()">検索</button>
+      </div>
+      <div class="flex_test-item">
+        <div id="loadingMessage" style="color:rgb(34,58,112);display: none;font-size: 30px;font-family: Hiragino Sans,ヒラギノ角ゴシック; font-weight: 600;">実行中...
+          <img src="image/Walk-unscreen.gif" alt="Loading..." width="50">
+        </div>
+      </div>
     </div>
-    </div>
+
+    
     <div id="map"></div>
     <script>
       var map;

@@ -27,7 +27,8 @@ body, html {
 
 .flex_test-box {
   display: flex;
-  align-items: center; /* セレクトボックスを垂直方向に中央揃え */
+  justify-content: space-between; /* 要素間のスペースを均等に配置 */
+  align-items: center; /* 要素を中央揃え */
 }
 
 .flex_test-item {
