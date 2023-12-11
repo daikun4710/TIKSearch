@@ -10,9 +10,9 @@
   </head>
   <body>
     <div class="logo">
-      <a href=""
+      <p
         ><img class="logoimg" src="./image/タイトル2_仮_-removebg-preview.png"
-      /></a>
+      /></p>
     </div>
     <div class="center">
       カテゴリ<br/>
@@ -133,9 +133,9 @@
           </select>
         </div>
       </div>
-      <!-- <p id="status">処理中...</p> -->
-      <img src="../image/nekotoaruku_touka.gif" alt="neko">
-      <p id="status"><img id="loadingGif" src="../image/nekotoaruku_touka.gif" alt="Loading..." style="display: none;"></p>
+      <p id="status">処理中...</p>
+      <!-- <img src="../image/nekotoaruku_touka.gif" alt="neko"> -->
+      <!-- <p id="status"><img id="loadingGif" src="../image/nekotoaruku_touka.gif" alt="Loading..." style="display: none;"></p> -->
       <br /><button
         id="mapper"
         style="
@@ -197,9 +197,9 @@
 
         if(bool == "true"){
           const statusElement = document.getElementById("status");
-          const loadingGif = document.getElementById("loadingGif");
+          // const loadingGif = document.getElementById("loadingGif");
           statusElement.style.display = 'block';
-          loadingGif.style.display = 'block';
+          // loadingGif.style.display = 'block';
           // statusElement.textContent = '処理中...';
 
         // テキストボックスの値をサーバーに送信してハッシュタグを変更
@@ -218,7 +218,7 @@
 
             console.log("起動中です");
             // 2つめのfetchリクエストを実行
-            loadingGif.style.display = 'none';
+            // loadingGif.style.display = 'none';
             // statusElement.textContent = 'API呼び出し成功。処理中...';
             return fetch("http://localhost:3000/runcode");
           })
@@ -232,7 +232,7 @@
           })
           .catch((error) => {
             console.error("Error:", error);
-            loadingGif.style.display = 'none';
+            // loadingGif.style.display = 'none';
             statusElement.textContent = 'エラーが発生しました。';
           });
          }
