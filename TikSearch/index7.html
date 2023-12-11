@@ -1,79 +1,231 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
   <head>
+    <meta name="viewport" content="width=device-width,intial-scale=1"/>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
-    <link rel="stylesheet" href="./css/sample.css">
+    
+    <link rel="stylesheet" href="./css/map.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
     <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    <!-- ApiKeyがあるファイル読み込み -->
+    <script type="text/javascript" src="js/mapApiKey.js"></script>
+    <script type="text/javascript" src="js/reSearch.js"></script>
     <title>Google Map with Info Window and Link</title>
     <style>
       #map {
         height: 500px;
         width: 100%;
       }
+      body{
+      margin:0;
+      }
+      #map {
+        height: 400px;
+        width: 100%;
+      }
+
+      #addressesList {
+        max-height: 250px; /* スクロール可能な領域の最大の高さ */
+        overflow-y: auto; /* 縦方向にスクロールバーを表示する */
+        margin: 10px;
+      }
+
+      .serach {
+        /* position: absolute; */
+        top: 380px;
+        left: 10px;
+        font-size: 25px;
+      }
+
+      ul {
+        counter-reset: number;
+        /* カウンターをリセット */
+        list-style-type: none !important;
+        /* 番号を消す */
+        padding: 0.3em 0.8em;
+        border: solid 2px #ffb107;
+      }
+      ul li {
+        border-bottom: dashed 1px orange;
+        position: relative;
+        padding: 0.5em 0.5em 0.5em 30px;
+        line-height: 1.5em;
+        counter-increment: number;
+        /* 各li要素ごとにカウンターを増やす */
+      }
+
+      ul li:after {
+        /* ここで番号を指定 */
+        position: absolute;
+        content: counter(number);
+        /* カウンターの値を表示 */
+        /* 番号のスタイル */
+        display: inline-block;
+        background: #ffb107;
+        color: white;
+        font-family: 'Avenir', 'Arial Black', 'Arial', sans-serif;
+        font-weight: bold;
+        font-size: 15px;
+        border-radius: 50%;
+        left: 0;
+        width: 25px;
+        height: 25px;
+        line-height: 25px;
+        text-align: center;
+        /* 縦方向の中央揃え */
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+      }
+      ul li:last-of-type {
+        border-bottom: none;
+        /* 最後のliの線だけ消す */
+      }
     </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
   </head>
   <body>
+    
+    <div id="search-box-container" class="flex_test-box">
+      <div class="flex_test-item">
+        <form action="#">
+          <!-- <label for="category">カテゴリ</label> -->
+          <select id="category">
+            <option value="観光">観光</option>
+            <option value="グルメ">グルメ</option>
+          </select>
+        </form>
+      </div>
+    
+      <div class="flex_test-item">
+        <!-- <label for="place">県</label> -->
+        <select name="place" id="place">
+          <!-- 都道府県のオプション -->
+          <option value="北海道">北海道</option>
+          <option value="青森">青森県</option>
+          <option value="秋田">秋田県</option>
+          <option value="岩手">岩手県</option>
+          <option value="宮城">宮城県</option>
+          <option value="山形">山形県</option>
+          <option value="福島">福島県</option>
+          <option value="東京">東京都</option>
+          <option value="千葉">千葉県</option>
+          <option value="埼玉">埼玉県</option>
+          <option value="神奈川">神奈川県</option>
+          <option value="群馬">群馬県</option>
+          <option value="栃木">栃木県</option>
+          <option value="茨城">茨城県</option>
+          <option value="新潟">新潟県</option>
+          <option value="山梨">山梨県</option>
+          <option value="静岡">静岡県</option>
+          <option value="長野">長野県</option>
+          <option value="岐阜">岐阜県</option>
+          <option value="愛知">愛知県</option>
+          <option value="富山">富山県</option>
+          <option value="石川">石川県</option>
+          <option value="福井">福井県</option>
+          <option value="京都">京都府</option>
+          <option value="大阪">大阪府</option>
+          <option value="滋賀">滋賀県</option>
+          <option value="兵庫">兵庫県</option>
+          <option value="奈良">奈良県</option>
+          <option value="和歌山">和歌山県</option>
+          <option value="三重">三重県</option>
+          <option value="鳥取">鳥取県</option>
+          <option value="島根">島根県</option>
+          <option value="岡山">岡山県</option>
+          <option value="広島">広島県</option>
+          <option value="山口">山口県</option>
+          <option value="愛媛">愛媛県</option>
+          <option value="高知">高知県</option>
+          <option value="徳島">徳島県</option>
+          <option value="香川">香川県</option>
+          <option value="福岡">福岡県</option>
+          <option value="佐賀">佐賀県</option>
+          <option value="長崎">長崎県</option>
+          <option value="熊本">熊本県</option>
+          <option value="大分">大分県</option>
+          <option value="宮崎">宮崎県</option>
+          <option value="鹿児島">鹿児島県</option>
+          <option value="沖縄">沖縄県</option>
+        </select>
+      </div>
+    
+      <div class="flex_test-item">
+        <button type="button" class="btn btn-primary" onclick="startReLoading()">検索</button>
+      </div>
+      <div class="flex_test-item">
+        <div id="loadingMessage" style="color:rgb(34,58,112);display: none;font-size: 30px;font-family: Hiragino Sans,ヒラギノ角ゴシック; font-weight: 600;">実行中...
+          <img src="image/Walk-unscreen.gif" alt="Loading..." width="50">
+        </div>
+      </div>
+    </div>
+
     <div id="map"></div>
+    
+    <p class="serach">検索一覧🔍</p>
+    <div>
+      <ul id="addressesList">
+      </ul>
+    </div>
     <script>
       var map;
       var infoWindow;
-
       function initMap() {
-        // マップを表示するためのオプションを設定
-        var mapOptions = {
-          center: { lat: 0, lng: 0 }, // マップの初期中心位置
-          zoom: 15, // ズームレベル（1が最小、20が最大）
-        };
-        // 地図を作成
-        var map = new google.maps.Map(
-          document.getElementById("map"),
-          mapOptions
+      // マップを表示するためのオプションを設定
+      var mapOptions = {
+        center: { lat: 0, lng: 0 }, // マップの初期中心位置
+        zoom: 15, // ズームレベル（1が最小、20が最大）
+      };
+      // 地図を作成
+      map = new google.maps.Map(
+        document.getElementById("map"),
+        mapOptions
+      );
+      // ユーザーの現在位置を取得して地図上に表示
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          function (position) {
+            var userLocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            };
+            // ユーザーの位置にマーカーを追加
+            new google.maps.Marker({
+              position: userLocation,
+              map: map,
+              title: "現在の位置",
+            });
+            // マップをユーザーの位置に移動
+            map.setCenter(userLocation);
+            map.setZoom(15);
+          },
+          function (error) {
+            // エラーメッセージを表示
+            console.error(
+              "位置情報を取得できませんでした。エラー: " + error.message
+            );
+          }
         );
-        // ユーザーの現在位置を取得して地図上に表示
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(
-            function (position) {
-              var userLocation = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude,
-              };
-
-              // ユーザーの位置にマーカーを追加
-              new google.maps.Marker({
-                position: userLocation,
-                map: map,
-                title: "現在の位置",
-              });
-
-              // マップをユーザーの位置に移動
-              map.setCenter(userLocation);
-              map.setZoom(15);
-            },
-            function (error) {
-              // エラーメッセージを表示
-              console.error(
-                "位置情報を取得できませんでした。エラー: " + error.message
-              );
-            }
-          );
-        } else {
-          // ブラウザが位置情報をサポートしていない場合のメッセージ
-          console.error("このブラウザは位置情報をサポートしていません。");
-        }
-
-        // 情報ウィンドウを初期化
-        infoWindow = new google.maps.InfoWindow();
+      } else {
+        // ブラウザが位置情報をサポートしていない場合のメッセージ
+        console.error("このブラウザは位置情報をサポートしていません。");
+      }
+      // 情報ウィンドウを初期化
+      infoWindow = new google.maps.InfoWindow();
 
         // ピンを立てたい住所
         const addressesData = JSON.parse(localStorage.getItem("Addresses"));
         //addressesData の中の　addresses を取り出す
         let addresses = addressesData.addresses;
+        // Log and display each address in the array
+        var addressesList = document.getElementById("addressesList");
         // ジオコーディングを実行
         var geocoder = new google.maps.Geocoder();
         // 4 つごとにまとまっていると仮定してループ
@@ -81,26 +233,50 @@
             let address = addresses[i];//住所
             let currentID = addresses[i + 1]; //動画ID
             let currentUsername = addresses[i + 2];//ユーザー名
-            let currentThumbnail = addresses[i + 3];//サムネイルurls
+            let currentThumbnail = addresses[i + 3];//サムネイルurl
+            // Display addresses as a list
+            const maxLength = 300; // 表示する最大文字数
+            let truncatedAddress = address; // ここに短縮されたテキストを格納する
 
+            // 文字列の長さが最大文字数を超えている場合、短縮する
+            if (address.length > maxLength) {
+              truncatedAddress = address.substring(0, maxLength) + '...';
+            }
+
+            addressesList.innerHTML += '<li style="display: flex; align-items: center;"><img src="' + currentThumbnail
+                                      + '" alt="サムネイル" height="200"><div style="height:200px; margin-left: 10px; display: flex; align-items: center;"><span style="text-align: center; width: 100%;">' + truncatedAddress + '</span></div></li>';
+
+            // console.log("Address " + (i + 1) + ": " + addressArray[i]);
             geocoder.geocode({ address: address }, function (results, status) {
             if (status === "OK") {
                 var location = results[0].geometry.location;
+                // 場所の精度を取得
+                const locationType = results[0].geometry.location_type;
+                if (locationType==='ROOFTOP'||locationType==='RANGE_INTERPOLATED') {
+                  // ピンを作成
+                  var marker = new google.maps.Marker({
+                      position: location,
+                      map: map,
+                      title: address,
+                  });
 
-                // ピンを作成
-                var marker = new google.maps.Marker({
-                    position: location,
-                    map: map,
-                    title: address,
-                });
+                  // 詳細情報ウィンドウの内容
+                  var contentString =
+                      "<div><h3>" +
+                      address +
+                      '</h3><p><a href="https://www.tiktok.com/@'+
+                        currentUsername+'/video/'+
+                        currentID+'" target="_blank">サイトへのリンク</a></p><p><img src="'
+                          +currentThumbnail+'" alt="サムネイル" height="320"></p>'+
+                          locationType+'</div>';
 
                 // 詳細情報ウィンドウの内容
                 var contentString =
                     '<div class="card"><div class="card_imgframe">'+
-                    '<a href="' +currentThumbnail + '"data-lightbox="image" data-title="画像の説明">' +
-                    '<img  src="' +currentThumbnail+'" alt="No image"></a></div>'+
+                    '<a id="thumb" href="' +currentThumbnail + '"data-lightbox="image" data-title="画像の説明">' +
+                    '<img id="thumb2" src="' +currentThumbnail+'" alt="No image"></a></div>'+
                     '<div class="card_textbox"><div class="card_titletext"><a href="https://www.tiktok.com/@'
-                      +currentUsername+'/video/'+currentID+'" target="_blank"><p style="color: red; font-size: 20px; font-weight: 500;">動画を見る<img src="./image/再生マーク.png" style="width: 30px; height: 30px; border:  none; margin-bottom: 2px;" ></p></a><hr style="margin: 10px; opacity: 0.3; color: blue; border-bottom: outset;"></div>'+
+                      +currentUsername+'/video/'+currentID+'" target="_blank"><p id="address" style="color: red; font-size: 20px; font-weight: 500;">動画を見る<img src="./image/再生マーク.png" style="width: 30px; height: 30px; border:  none; margin-bottom: 2px;" ></p></a><hr style="margin: 10px; opacity: 0.3; color: blue; border-bottom: outset;"></div>'+
                     '<div class="card_overviewtext">'+address+'</div>'
                     '</div></div>';
 
@@ -115,21 +291,22 @@
             } else {
                 // alert("ジオコーディングに失敗しました: " + status);
             }
+          }
         });
-        }
-
       }
-      var dataArray = JSON.parse(localStorage.getItem("Addresses"));
-      //検索情報出力
-      console.log(dataArray);
+    }
+      // var dataArray = JSON.parse(localStorage.getItem("Addresses"));
+      // 検索情報出力
+      // console.log(dataArray);
+      // Google Maps API の API キーを取得
+      const googleMapsApiKey = config.mapApiKey;
+      //ApiKey　script作成
+      const mapApiScript = document.createElement("script");
+      mapApiScript.src = "https://maps.googleapis.com/maps/api/js?key="+googleMapsApiKey+"&callback=initMap";
+      mapApiScript.async = true;
+      mapApiScript.defer = true;
+      document.head.appendChild(mapApiScript);
     </script>
-
-    <script
-      async
-      defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUqiDP-1T8cxCyJRYrel2GIcAlz5_vgAE&callback=initMap"
-    ></script>
-    <py-script> print(19) </py-script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   </body>
 </html>
+
