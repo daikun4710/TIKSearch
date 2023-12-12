@@ -3,6 +3,7 @@ body, html {
   margin: 0;
   padding: 0;
   height: 100%;
+  width:100%;
 }
 #map {
   height: 100vh;
@@ -55,3 +56,105 @@ select {
   width: 150px; /* 幅を適切に設定 */
   padding: 5px; /* パディングを追加して見た目を整える */
 }
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#bar {
+    display: none;
+   }
+/* ▼プルダウンメニューを囲む枠の装飾 */
+.pulldownset {
+    /*border: 3px double #0000cc;  /* 青色の二重線(3px) */
+    /*background-color: #eeeeff;   /* 背景色：淡い青色 */
+    margin: 1em 0px;             /* 外側の余白：上下に1文字分 */
+    padding: 1em;                /* 内側の余白：周囲に1文字分 */
+    overflow: auto;              /* はみ出る場合は自動調整(スクロールバーを表示) */
+ }
+ /* ▼プルダウンメニューそのものの装飾 */
+ select {
+    font-size: 1.2em;   /* 項目の文字サイズを1.2倍に */
+ }
+ .radis{
+    border-radius: 10px;
+    height:30px;
+    width:auto;
+ }
+ .mainselect{
+    border-radius:10px;
+    height:30px;
+    width:auto;
+ }
+ .subbox{
+    border-radius: 10px;
+    height:30px;
+    width:auto;
+ }
+ #status{
+   display: none;
+ }
+ .card{
+   width: 350px;
+   height: auto;
+   border-radius: 8px;
+   border: 4px solid #180303;
+   overflow: hidden;
+   box-shadow: 0 4px 15px rgba(0,0,0,.2)
+ }
+ #thumb2{
+   width: 100%;
+   height: 170px;
+   object-fit: cover; /* この一行を追加するだけ！*/
+ }
+ .card__textbox{
+   width: 100%;
+   height: auto;
+   padding: 20px 18px;
+   background: #fff;
+   box-sizing: border-box;
+ }
+ .card__textbox{
+   margin-top: 10px;
+ }
+ .card__titletext{
+   margin-top: 10px;
+   font-size: 20px;
+   font-weight: bold;
+   line-height: 125%;
+ }
+ .card__overviewtext{
+   font-size: 12px;
+   line-height: 150%;
+   padding-left: 3px;
+   padding-right: 3px;
+ }
+
+ .card__img{
+  border-radius: 30px;
+ }
+ 
+ #address {
+  font-family: "MS 明朝" sans-serif;
+  transition: color 0.3s;
+ }
+ 
+ a{
+  text-decoration-line: none !important;
+ }
+ 
+a:hover{
+  color : #ff7043;
+}
+
+ a img{
+  border-radius: 8px; 
+  border:solid 2px #cccccc;
+ }
+
+ a img:hover{ 
+	opacity:0.5;
+	transition:0.3s;
+ }
