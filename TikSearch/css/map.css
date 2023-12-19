@@ -158,3 +158,101 @@ a:hover{
 	opacity:0.5;
 	transition:0.3s;
  }
+ /* 一覧表示文字 */
+ #addressesList li span {
+  /* 9行に制限 */
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 9;
+}
+/* 実行中 */
+#loadingMessage{
+  top: 50px;
+  z-index: 9999;
+}
+/* モバイル　検索　表示ボタン */
+.searchBoxMb{
+  display: none;
+}
+/* ロード中背景　半透明 用div */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.5); /* 半透明の白 */
+  z-index: 1000;
+  display: none; /* 初めは非表示 */
+}
+
+ /* 横幅700px以下 */
+@media screen and (max-width:700px) {
+  /* 検索 */
+  #search-box-container {
+    left: 152px;
+  }
+  .flex_test-item{
+    padding-left: 0px;
+  }
+  .flex_test-item button{
+    font-size: 13px;
+  }
+  /* 検索セレクト */
+  .flex_test-item select{
+    width: 85px;
+    font-size: 13px;
+  }
+  /* 一覧表示文字 */
+  #addressesList li span {
+    font-size: 13px;
+  }
+  /* ピン詳細カード */
+  .card{
+    width: 250px;
+  }
+  /* google map 地図　航空写真 */
+  .gm-style-mtc button{
+    padding: 0px 16px !important;
+    font-size: 13px !important;
+  }
+}
+/* 横幅450px以下 */
+@media screen and (max-width:450px) {
+  .flex_test-box{
+    display: none;
+  }
+  /* 一覧表示文字 */
+  #addressesList li span {
+    font-size: 11px;
+  }
+  /* 詳細カード */
+  .card{
+    width: 190px;
+  }
+  /* モバイル検索表示 ボタン*/
+  .searchFormBtn{
+    position: absolute;
+    z-index: 1;
+    top: 13px;
+    left: 160px; 
+  }
+  .formMb select{
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    width:85px;
+    height: 30.08px;
+    font-size: 13px;
+  }
+  .formMb button{
+    font-size: 13px;
+  }
+  .searchBoxMb{
+    display: block;
+  }
+  /* 実行中メッセージ */
+  #loadingMessage{
+    top: 200px;
+  }
+}

@@ -1,9 +1,12 @@
 body{
-    background-image:url(../image/nihon4.png);
+    background:url(../image/nihon4.png)no-repeat center center fixed;
     background-size: cover;
+    /* background-repeat: no-repeat; */
+    /* background-position-x: 50%; */
     margin:0;
+    padding: 0;
+    height: 100vh;
 }
-
 .mapp{
     text-align: center;
    
@@ -27,14 +30,52 @@ button{
     height: 60px;
     font-size: 20px;
 }
-.sitayose {
-    margin-top: 200px;
-    text-align: center;
-    margin-bottom:20px;
-  }
-.sitayose h1{
-    margin:0;
-    font-size:20px;
-    color: rgb(35, 1, 1);
-    font-weight: 100px;
+@media screen and (min-width:1023px) {
+
+    .sitayose {
+        margin-top: 10%;
+        text-align: center;
+        margin-bottom:20px;
+      }
+    .sitayose h1{
+        margin:0;
+        font-size:20px;
+        color: rgb(35, 1, 1);
+        font-weight: 100px;
+    }
+    
+}
+
+@media screen and (min-width:768px) and (max-width:1023px) {
+    .sitayose {
+        margin-top: 40%;
+        text-align: center;
+        margin-bottom:20px;
+      }
+    .subbox{
+        margin-top:20px;
+    }
+}
+
+
+@media screen and (max-width:768px) {
+    .sitayose h1{
+        margin:0;
+        color: rgb(35, 1, 1);
+        font-weight: 100px;
+        font-size:1rem;
+    }
+    
+    .sitayose {
+        margin-top: 50%;
+        text-align: center;
+        margin-bottom:20px;
+      }
+    
+}
+/* 横幅500px以下 */
+@media screen and (max-width:500px) {
+    .logoimg{
+        width: 275px;
+    }
 }
