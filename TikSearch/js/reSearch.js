@@ -1,5 +1,22 @@
-function startReLoading() {
-    let selectElement = document.getElementById('place');
+// モバイル値取得
+function loadValueGetMb() {
+  const selectElement = document.getElementById('placeMb');
+  const categorySelect = document.getElementById("categoryMb");
+  startReLoading(selectElement,categorySelect);
+}
+// 値取得
+function loadValueGet() {
+  const selectElement = document.getElementById('place');
+  const categorySelect = document.getElementById("category");
+  startReLoading(selectElement,categorySelect);
+}
+function startReLoading(selectElement,categorySelect) {
+    // 実行中画面を半透明に
+    let overlay = document.createElement('div');
+    overlay.classList.add('overlay');
+    document.body.appendChild(overlay);
+    overlay.style.display = 'block';
+    // let selectElement = document.getElementById('place');
     
     // 選択されたオプションのインデックスを取得
     let selectedIndex = selectElement.selectedIndex;
@@ -10,7 +27,7 @@ function startReLoading() {
     // 取得した値を出力（例: コンソールログ）
     console.log('選択された県の値は: ' + selectedValue);
 
-    const categorySelect = document.getElementById("category");
+    // const categorySelect = document.getElementById("category");
     let combinedValue = "";
     const selectedCategory = categorySelect.value;
     console.log(selectedCategory);
